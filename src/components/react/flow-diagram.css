@@ -1,0 +1,132 @@
+.flow-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.flow-nodes {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+}
+
+.flow-node__button {
+  flex-shrink: 0;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 0.75rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  font-family: var(--font-sans);
+  min-width: 7rem;
+  text-align: center;
+}
+
+.flow-node__button:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.flow-node__button--active {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  box-shadow: var(--shadow-md);
+}
+
+.flow-node__button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.flow-arrow {
+  color: var(--color-text-muted);
+  font-size: 1.25rem;
+  padding: 0 0.35rem;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.flow-detail {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.flow-detail__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: var(--color-accent);
+}
+
+.flow-detail__description {
+  margin: 0 0 1rem;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.flow-detail__command {
+  position: relative;
+}
+
+.flow-detail__command pre {
+  margin: 0;
+}
+
+.flow-detail__copy {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--color-code-text);
+  border-radius: 4px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: background 0.15s;
+}
+
+.flow-detail__copy:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.flow-detail__copy--copied {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: white;
+}
+
+.flow-hint {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .flow-nodes {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .flow-arrow {
+    transform: rotate(90deg);
+    align-self: center;
+    padding: 0.25rem 0;
+  }
+
+  .flow-node__button {
+    width: 100%;
+  }
+}
+

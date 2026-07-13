@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { upcomingTopics } from '../content/releases';
+---
+
+<BaseLayout
+  title="Forside"
+  description="Interaktiv introduktion til Git og GitHub"
+  currentPath="/"
+>
+  <div class="content">
+    <h1>Introduktion til Git og GitHub</h1>
+    <p class="lead">
+      Lær Git og GitHub gennem interaktive guides med visuelle flows,
+      trin-for-trin vejledninger og små quizzer.
+    </p>
+
+    <section class="section" aria-labelledby="topics-heading">
+      <h2 id="topics-heading">Emner</h2>
+      <div class="card-grid">
+        <a href="/releases" class="topic-card">
+          <span class="topic-card__badge">Tilgængelig</span>
+          <h3>Releases</h3>
+          <p>Tags, GitHub Releases og automatiseret udgivelse med GitHub Actions</p>
+        </a>
+
+        {upcomingTopics.map((topic) => (
+          <div class="topic-card topic-card--disabled" aria-disabled="true">
+            <span class="topic-card__badge">Kommer snart</span>
+            <h3>{topic.title}</h3>
+            <p>{topic.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

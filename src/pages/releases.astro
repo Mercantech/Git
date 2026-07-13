@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ReleaseFlowDiagram from '../components/react/ReleaseFlowDiagram';
+import StepGuide from '../components/react/StepGuide';
+import MiniQuiz from '../components/react/MiniQuiz';
+import {
+  introPoints,
+  flowNodes,
+  guideSteps,
+  workflowYaml,
+  workflowParts,
+  quizQuestions,
+} from '../content/releases';
+---
+
+<BaseLayout
+  title="Releases, tags og GitHub Actions"
+  description="Lær hvordan du laver releases med Git-tags og automatiserer med GitHub Actions"
+  currentPath="/releases"
+>
+  <div class="content">
+    <nav class="breadcrumb" aria-label="Brødkrummer">
+      <a href="/">Forside</a> / Releases
+    </nav>
+
+    <h1>Releases, tags og GitHub Actions</h1>
+    <p class="lead">
+      Lær hvordan du markerer en version med Git-tags, opretter en GitHub Release
+      og automatiserer processen med GitHub Actions.
+    </p>
+
+    <section class="section" aria-labelledby="intro-heading">
+      <h2 id="intro-heading">Hvad er en release?</h2>
+      <ul class="intro-list">
+        {introPoints.map((point, i) => (
+          <li>
+            <span class="intro-list__icon" aria-hidden="true">{i + 1}</span>
+            <div>
+              <strong>{point.title}</strong> — {point.text}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="flow-heading">
+      <h2 id="flow-heading">Release-flow</h2>
+      <p class="section-intro">
+        Fra commit til automatisk release — klik på hvert trin for at se hvad der sker.
+      </p>
+      <ReleaseFlowDiagram client:visible nodes={flowNodes} />
+    </section>
+
+    <section class="section" aria-labelledby="guide-heading">
+      <h2 id="guide-heading">Trin-for-trin guide</h2>
+      <p class="section-intro">
+        Følg disse trin for at lave din første release med tag og GitHub Actions.
+      </p>
+      <StepGuide client:visible steps={guideSteps} />
+    </section>
+
+    <section class="section" aria-labelledby="workflow-heading">
+      <h2 id="workflow-heading">Eksempel: GitHub Actions workflow</h2>
+      <p class="section-intro">
+        Dette workflow trigges automatisk når du pusher et tag der matcher <code>v*</code>.
+        Gem det som <code>.github/workflows/release.yml</code> i dit repository.
+      </p>
+
+      <div class="code-block">
+        <div class="code-block__label">.github/workflows/release.yml</div>
+        <pre><code>{workflowYaml}</code></pre>
+      </div>
+
+      <div class="workflow-parts">
+        {workflowParts.map((part) => (
+          <div class="workflow-part">
+            <strong>{part.label}</strong>
+            <p>{part.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="quiz-heading">
+      <h2 id="quiz-heading">Test din viden</h2>
+      <p class="section-intro">
+        Svar på spørgsmålene for at tjekke om du har styr på releases, tags og Actions.
+      </p>
+      <MiniQuiz client:visible questions={quizQuestions} />
+    </section>
+  </div>
+</BaseLayout>
