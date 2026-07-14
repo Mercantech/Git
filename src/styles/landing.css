@@ -129,30 +129,6 @@
   color: var(--color-accent);
 }
 
-.landing-hero__stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-}
-
-.landing-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.landing-stat__value {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--color-text);
-  line-height: 1;
-}
-
-.landing-stat__label {
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-}
-
 /* Hero git graph visual */
 .landing-graph {
   background: var(--color-surface);

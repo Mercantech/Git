@@ -41,8 +41,6 @@ const learningPath = [
   { label: 'Merge', desc: 'Integrer sikkert til main' },
   { label: 'Issues & Releases', desc: 'Spor arbejde og udgiv versioner' },
 ];
-
-const availableCount = topics.filter((t) => t.available).length;
 ---
 
 <BaseLayout
@@ -74,20 +72,6 @@ const availableCount = topics.filter((t) => t.available).length;
             <a href="#emner" class="landing-btn landing-btn--secondary">
               Se alle emner
             </a>
-          </div>
-          <div class="landing-hero__stats" aria-label="Sideoversigt">
-            <div class="landing-stat">
-              <span class="landing-stat__value">{availableCount}</span>
-              <span class="landing-stat__label">emner at udforske</span>
-            </div>
-            <div class="landing-stat">
-              <span class="landing-stat__value">100%</span>
-              <span class="landing-stat__label">gratis & i browseren</span>
-            </div>
-            <div class="landing-stat">
-              <span class="landing-stat__value">DA</span>
-              <span class="landing-stat__label">på dansk</span>
-            </div>
           </div>
         </div>
 

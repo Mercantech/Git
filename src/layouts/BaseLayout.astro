@@ -31,6 +31,15 @@ const { title, description = 'Introduktion til Git og GitHub', currentPath = '/'
           <a href="/issues" aria-current={currentPath === '/issues' ? 'page' : undefined}>Issues</a>
           <a href="/releases" aria-current={currentPath === '/releases' ? 'page' : undefined}>Releases</a>
         </nav>
+        <button
+          type="button"
+          class="present-toggle"
+          data-present-toggle
+          aria-pressed="false"
+          aria-label="Start præsentationstilstand"
+        >
+          Præsentation
+        </button>
       </div>
     </header>
 
@@ -41,9 +50,23 @@ const { title, description = 'Introduktion til Git og GitHub', currentPath = '/'
     <footer class="site-footer">
       Interaktiv introduktion til Git og GitHub
     </footer>
+
+    <div class="present-controls" data-present-controls hidden>
+      <button type="button" class="present-controls__btn present-controls__btn--icon" data-present-prev aria-label="Forrige slide">←</button>
+      <span class="present-controls__counter" data-present-counter>1 / 1</span>
+      <button type="button" class="present-controls__btn present-controls__btn--icon" data-present-next aria-label="Næste slide">→</button>
+      <button type="button" class="present-controls__btn" data-present-fullscreen aria-label="Fuld skærm">Fuld skærm</button>
+      <button type="button" class="present-controls__btn" data-present-exit aria-label="Afslut præsentation">Afslut</button>
+      <span class="present-controls__hint" aria-hidden="true">← → mellemrum · Esc afslut · F fuld skærm</span>
+    </div>
+
+    <script>
+      import '../scripts/present-mode';
+    </script>
   </body>
 </html>
 
 <style is:global>
   @import '../styles/global.css';
+  @import '../styles/present.css';
 </style>
