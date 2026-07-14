@@ -4,12 +4,14 @@ import PullRequestSimulator from '../components/react/PullRequestSimulator';
 import ReleaseFlowDiagram from '../components/react/ReleaseFlowDiagram';
 import StepGuide from '../components/react/StepGuide';
 import MiniQuiz from '../components/react/MiniQuiz';
+import { PullRequestGraphVisualizer } from '../components/react/graph-visualizers';
 import {
   whyPrPoints,
   teamConventions,
   prDescriptionTemplate,
   reviewChecklist,
   workflowSteps,
+  graphSteps,
   flowNodes,
   guideSteps,
   goodBadExamples,
@@ -67,6 +69,14 @@ import {
           </li>
         ))}
       </ul>
+    </section>
+
+    <section class="section" aria-labelledby="graph-heading">
+      <h2 id="graph-heading">PR i Git-grafen</h2>
+      <p class="section-intro">
+        Se hvordan en pull request ser ud i Git — fra push til merge på main.
+      </p>
+      <PullRequestGraphVisualizer client:visible steps={graphSteps} />
     </section>
 
     <section class="section" aria-labelledby="workflow-heading">

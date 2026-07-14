@@ -1,3 +1,7 @@
+import type { GitGraphStep } from './git-graph';
+
+export type { GitGraphStep };
+
 export interface FlowNode {
   id: string;
   label: string;
@@ -216,6 +220,47 @@ export const flowNodes: FlowNode[] = [
     description:
       'Et workflow kan trigges når et tag der matcher v* pushes. Det kan bygge projektet, køre tests og oprette GitHub Release automatisk.',
     command: 'on:\n  push:\n    tags:\n      - \'v*\'',
+  },
+];
+
+export const graphSteps: GitGraphStep[] = [
+  {
+    id: 'ready',
+    label: 'Klar commit',
+    title: 'Main er klar',
+    description: 'Sprint-arbejdet er merged til main. Koden er testet og klar til at blive versioneret.',
+    graphState: 'ready',
+  },
+  {
+    id: 'tag',
+    label: 'Git tag',
+    title: 'Tag oprettet',
+    description: 'Et annoteret tag (v0.2.0) peges på det specifikke commit — et fast referencepunkt der aldrig flytter sig.',
+    command: 'git tag -a v0.2.0 -m "Release sprint 2"',
+    graphState: 'tag',
+  },
+  {
+    id: 'push',
+    label: 'Push tag',
+    title: 'Tag på GitHub',
+    description: 'Tagget pushes til origin. Nu kan GitHub og Actions se det.',
+    command: 'git push origin v0.2.0',
+    graphState: 'push',
+  },
+  {
+    id: 'release',
+    label: 'Release',
+    title: 'GitHub Release',
+    description: 'Release oprettes med noter og vises på repository-siden — det kunden downloader og tester.',
+    graphState: 'release',
+  },
+  {
+    id: 'actions',
+    label: 'Actions',
+    title: 'CI/CD kører',
+    description: 'Push af tag v* trigger workflow: build, test og evt. automatisk release-oprettelse.',
+    command: 'on:\n  push:\n    tags:\n      - \'v*\'',
+    graphState: 'actions',
   },
 ];
 

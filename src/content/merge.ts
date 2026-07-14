@@ -1,4 +1,5 @@
 import type { FlowNode, GuideStep, QuizQuestion } from './releases';
+import type { GitGraphStep } from './git-graph';
 
 export interface MergeStrategy {
   id: string;
@@ -152,6 +153,39 @@ export const conflictSteps: ConflictStep[] = [
   return "Projektoversigt";
 }`,
     resolved: true,
+  },
+];
+
+export const graphSteps: GitGraphStep[] = [
+  {
+    id: 'sync',
+    label: 'Merge main',
+    title: 'Hent main ind',
+    description: 'Før merge til main: merge main ind i din branch så den er up-to-date.',
+    command: 'git checkout feature/dashboard\ngit merge main',
+    graphState: 'sync',
+  },
+  {
+    id: 'conflict',
+    label: 'Konflikt',
+    title: 'Merge conflict',
+    description: 'Samme linjer ændret på begge grene. Git stopper og beder dig løse det manuelt.',
+    graphState: 'conflict',
+  },
+  {
+    id: 'resolve',
+    label: 'Løs',
+    title: 'Konflikt løst',
+    description: 'Rediger filer, fjern markører, test og commit merge.',
+    command: 'git add .\ngit commit -m "merge main into feature/dashboard"',
+    graphState: 'resolve',
+  },
+  {
+    id: 'merged',
+    label: 'Merged',
+    title: 'Samlet på main',
+    description: 'PR merged — feature og main er forenet. Grøn merge-commit på main.',
+    graphState: 'merged',
   },
 ];
 

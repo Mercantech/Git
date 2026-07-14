@@ -1,4 +1,5 @@
 import type { FlowNode, GuideStep, QuizQuestion } from './releases';
+import type { GitGraphStep } from './git-graph';
 
 export interface PrWorkflowStep {
   id: string;
@@ -116,6 +117,46 @@ export const workflowSteps: PrWorkflowStep[] = [
       'Med grøn CI og approval merges PR\'en ind i main. Feature-branchen kan slettes bagefter.',
     status: 'merged',
     tip: 'Efter merge: git checkout main && git pull — så er du klar til næste feature branch.',
+  },
+];
+
+export const graphSteps: GitGraphStep[] = [
+  {
+    id: 'pushed',
+    label: 'Push branch',
+    title: 'Branch på GitHub',
+    description: 'Feature-branchen er pushet. Commits eksisterer på remote — klar til pull request.',
+    command: 'git push -u origin feature/login',
+    graphState: 'pushed',
+  },
+  {
+    id: 'open',
+    label: 'Opret PR',
+    title: 'Pull request åben',
+    description: 'PR oprettes: main ← feature/login. Diff vises, CI starter.',
+    graphState: 'open',
+  },
+  {
+    id: 'review',
+    label: 'Review',
+    title: 'Code review',
+    description: 'Teamet gennemgår ændringer. Nye commits på branchen opdaterer PR automatisk.',
+    graphState: 'review',
+  },
+  {
+    id: 'approved',
+    label: 'Godkendt',
+    title: 'Approved',
+    description: 'Mindst én reviewer har godkendt. CI er grøn. Klar til merge.',
+    graphState: 'approved',
+  },
+  {
+    id: 'merged',
+    label: 'Merged',
+    title: 'Merged til main',
+    description: 'Squash and merge — feature-commits bliver én commit på main. Branch kan slettes.',
+    command: 'git checkout main && git pull',
+    graphState: 'merged',
   },
 ];
 

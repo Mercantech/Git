@@ -1,4 +1,5 @@
 import type { FlowNode, GuideStep, QuizQuestion } from './releases';
+import type { GitGraphStep } from './git-graph';
 
 export interface ConventionalType {
   id: string;
@@ -130,6 +131,44 @@ export const flowNodes: FlowNode[] = [
     description:
       'Push sender dine commits til GitHub, så holdkammerater kan se dem og du kan oprette en pull request.',
     command: 'git push origin feature/login',
+  },
+];
+
+export const graphSteps: GitGraphStep[] = [
+  {
+    id: 'working',
+    label: 'Working dir',
+    title: 'Du redigerer filer',
+    description:
+      'Ændringer i din editor lander i working directory. Git kan se dem (git status), men de er endnu ikke staged eller committed.',
+    graphState: 'working',
+  },
+  {
+    id: 'stage',
+    label: 'git add',
+    title: 'Staging area',
+    description:
+      'git add flytter valgte ændringer til staging — en forberedelseszone. Du vælger præcis hvad næste commit skal indeholde.',
+    command: 'git add src/login.ts',
+    graphState: 'stage',
+  },
+  {
+    id: 'commit',
+    label: 'git commit',
+    title: 'Snapshot gemmes',
+    description:
+      'Commit opretter et permanent snapshot i dit lokale repository. Det er nu en del af Git-historikken.',
+    command: 'git commit -m "feat(auth): tilføj login-side"',
+    graphState: 'commit',
+  },
+  {
+    id: 'push',
+    label: 'git push',
+    title: 'Send til GitHub',
+    description:
+      'Push kopierer dine commits til remote (origin). Nu kan teamet se dem og du kan oprette en PR.',
+    command: 'git push origin feature/login',
+    graphState: 'push',
   },
 ];
 

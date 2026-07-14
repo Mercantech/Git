@@ -4,10 +4,12 @@ import ReleaseFlowDiagram from '../components/react/ReleaseFlowDiagram';
 import StepGuide from '../components/react/StepGuide';
 import MiniQuiz from '../components/react/MiniQuiz';
 import CommitMessageBuilder from '../components/react/CommitMessageBuilder';
+import { CommitGraphVisualizer } from '../components/react/graph-visualizers';
 import {
   whyCommitPoints,
   teamConventions,
   conventionalTypes,
+  graphSteps,
   flowNodes,
   guideSteps,
   badGoodExamples,
@@ -76,6 +78,14 @@ import {
       </p>
 
       <CommitMessageBuilder client:visible types={conventionalTypes} />
+    </section>
+
+    <section class="section" aria-labelledby="zones-heading">
+      <h2 id="zones-heading">Git's zoner — visuelt</h2>
+      <p class="section-intro">
+        Fra redigeret fil til commit på GitHub — klik gennem zonerne og se hvor data befinder sig.
+      </p>
+      <CommitGraphVisualizer client:visible steps={graphSteps} />
     </section>
 
     <section class="section" aria-labelledby="examples-heading">

@@ -5,11 +5,13 @@ import IssueTemplateBuilder from '../components/react/IssueTemplateBuilder';
 import ReleaseFlowDiagram from '../components/react/ReleaseFlowDiagram';
 import StepGuide from '../components/react/StepGuide';
 import MiniQuiz from '../components/react/MiniQuiz';
+import { IssueGraphVisualizer } from '../components/react/graph-visualizers';
 import {
   whyIssuePoints,
   teamConventions,
   issueTypes,
   workflowSteps,
+  graphSteps,
   flowNodes,
   guideSteps,
   goodBadExamples,
@@ -68,6 +70,14 @@ import {
           </li>
         ))}
       </ul>
+    </section>
+
+    <section class="section" aria-labelledby="graph-heading">
+      <h2 id="graph-heading">Issue → kode — visuelt</h2>
+      <p class="section-intro">
+        Følg issue #42 fra oprettelse til lukket via branch, PR og merge på main.
+      </p>
+      <IssueGraphVisualizer client:visible steps={graphSteps} />
     </section>
 
     <section class="section" aria-labelledby="workflow-heading">

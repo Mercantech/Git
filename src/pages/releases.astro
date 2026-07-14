@@ -4,6 +4,7 @@ import ReleaseFlowDiagram from '../components/react/ReleaseFlowDiagram';
 import StepGuide from '../components/react/StepGuide';
 import MiniQuiz from '../components/react/MiniQuiz';
 import SemVerExplorer from '../components/react/SemVerExplorer';
+import { ReleaseGraphVisualizer } from '../components/react/graph-visualizers';
 import {
   whyReleasePoints,
   teamConventions,
@@ -11,6 +12,7 @@ import {
   releaseExamples,
   releaseExampleAnnotations,
   introPoints,
+  graphSteps,
   flowNodes,
   guideSteps,
   workflowYaml,
@@ -159,9 +161,17 @@ import {
     </section>
 
     <section class="section" aria-labelledby="flow-heading">
-      <h2 id="flow-heading">Release-flow</h2>
+      <h2 id="flow-heading">Release-flow — visuelt</h2>
       <p class="section-intro">
-        Fra commit til automatisk release — klik på hvert trin for at se hvad der sker.
+        Fra commit på main til tag, release og Actions — klik på hvert trin.
+      </p>
+      <ReleaseGraphVisualizer client:visible steps={graphSteps} />
+    </section>
+
+    <section class="section" aria-labelledby="flow-commands-heading">
+      <h2 id="flow-commands-heading">Kommandoer i flowet</h2>
+      <p class="section-intro">
+        De vigtigste trin og kommandoer bag release-processen.
       </p>
       <ReleaseFlowDiagram client:visible nodes={flowNodes} />
     </section>

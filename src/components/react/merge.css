@@ -187,6 +187,7 @@
   margin: 0;
   padding: 1rem 1.25rem;
   overflow-x: auto;
+  max-width: 100%;
   font-size: 0.85rem;
   line-height: 1.6;
 }
@@ -201,23 +202,20 @@
 .conflict-line--ours {
   background: rgba(37, 99, 235, 0.2);
   display: block;
-  margin: 0 -1.25rem;
-  padding: 0 1.25rem;
+  padding: 0 0.25rem;
 }
 
 .conflict-line--theirs {
   background: rgba(240, 80, 50, 0.2);
   display: block;
-  margin: 0 -1.25rem;
-  padding: 0 1.25rem;
+  padding: 0 0.25rem;
 }
 
 .conflict-line--marker {
   color: #fbbf24;
   font-weight: 700;
   display: block;
-  margin: 0 -1.25rem;
-  padding: 0 1.25rem;
+  padding: 0 0.25rem;
   background: rgba(251, 191, 36, 0.1);
 }
 

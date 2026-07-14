@@ -1,4 +1,5 @@
 import type { FlowNode, GuideStep, QuizQuestion } from './releases';
+import type { GitGraphStep } from './git-graph';
 
 export interface IssueType {
   id: string;
@@ -161,6 +162,45 @@ export const workflowSteps: IssueWorkflowStep[] = [
       'Når PR merges med "Closes #42", lukkes issue automatisk. Det vises på boardet og i sprint-overblik.',
     status: 'closed',
     tip: 'Lukte issues er jeres dokumentation for hvad der blev leveret i sprinten.',
+  },
+];
+
+export const graphSteps: GitGraphStep[] = [
+  {
+    id: 'open',
+    label: 'Issue',
+    title: 'Issue oprettet',
+    description: 'Bug eller feature dokumenteret som issue #42 på GitHub.',
+    graphState: 'open',
+  },
+  {
+    id: 'assign',
+    label: 'Tildel',
+    title: 'Assigned',
+    description: 'Issue tildelt teammedlem og lagt på sprint-board.',
+    graphState: 'assign',
+  },
+  {
+    id: 'branch',
+    label: 'Branch',
+    title: 'Kode på branch',
+    description: 'fix/42-email branch oprettes. Commits refererer til issue.',
+    command: 'git checkout -b fix/42-email-validation',
+    graphState: 'branch',
+  },
+  {
+    id: 'pr',
+    label: 'PR',
+    title: 'Pull request',
+    description: 'PR oprettes med "Closes #42" — issue linkes til kode.',
+    graphState: 'pr',
+  },
+  {
+    id: 'closed',
+    label: 'Lukket',
+    title: 'Issue closed',
+    description: 'Ved merge lukkes issue automatisk. Sporbarhed fra opgave til release.',
+    graphState: 'closed',
   },
 ];
 

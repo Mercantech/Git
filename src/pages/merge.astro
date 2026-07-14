@@ -5,11 +5,13 @@ import MergeConflictResolver from '../components/react/MergeConflictResolver';
 import ReleaseFlowDiagram from '../components/react/ReleaseFlowDiagram';
 import StepGuide from '../components/react/StepGuide';
 import MiniQuiz from '../components/react/MiniQuiz';
+import { MergeGraphVisualizer } from '../components/react/graph-visualizers';
 import {
   whyMergePoints,
   teamConventions,
   mergeStrategies,
   conflictSteps,
+  graphSteps,
   flowNodes,
   guideSteps,
   preventionTips,
@@ -76,6 +78,14 @@ import {
       </p>
 
       <MergeStrategyExplorer client:visible strategies={mergeStrategies} />
+    </section>
+
+    <section class="section" aria-labelledby="graph-heading">
+      <h2 id="graph-heading">Merge — visuelt</h2>
+      <p class="section-intro">
+        Se hvordan main og feature branch mødes — med og uden konflikt.
+      </p>
+      <MergeGraphVisualizer client:visible steps={graphSteps} />
     </section>
 
     <section class="section" aria-labelledby="conflict-heading">
