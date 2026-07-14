@@ -1,39 +1,245 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { topics } from '../content/topics';
+
+const topicMeta: Record<string, { icon: string; color: string; tag: string }> = {
+  Commits: { icon: '💾', color: '#2563eb', tag: 'git commit' },
+  Branches: { icon: '🌿', color: '#16a34a', tag: 'git branch' },
+  'Pull Requests': { icon: '🔀', color: '#7c3aed', tag: 'pull request' },
+  Merge: { icon: '⚡', color: '#d97706', tag: 'git merge' },
+  Releases: { icon: '🏷️', color: '#ec4899', tag: 'git tag' },
+  Issues: { icon: '📋', color: '#0891b2', tag: 'github issues' },
+};
+
+const features = [
+  {
+    icon: '🎯',
+    title: 'Interaktive visualiseringer',
+    text: 'Se Git-flows i aktion — branches, merges og releases visualiseret trin for trin.',
+  },
+  {
+    icon: '📖',
+    title: 'Trin-for-trin guides',
+    text: 'Følg den praktiske proces fra din første commit til et færdigt release.',
+  },
+  {
+    icon: '✅',
+    title: 'Mini quizzer',
+    text: 'Test din viden undervejs og få feedback med det samme.',
+  },
+  {
+    icon: '🛠️',
+    title: 'Praktiske værktøjer',
+    text: 'Byg commit-beskeder, løs merge-konflikter og udforsk SemVer direkte i browseren.',
+  },
+];
+
+const learningPath = [
+  { label: 'Commits', desc: 'Gem snapshots og skriv gode beskeder' },
+  { label: 'Branches', desc: 'Arbejd parallelt uden at blokere hinanden' },
+  { label: 'Pull Requests', desc: 'Review kode og diskuter ændringer' },
+  { label: 'Merge', desc: 'Integrer sikkert til main' },
+  { label: 'Issues & Releases', desc: 'Spor arbejde og udgiv versioner' },
+];
+
+const availableCount = topics.filter((t) => t.available).length;
 ---
 
 <BaseLayout
   title="Forside"
-  description="Interaktiv introduktion til Git og GitHub"
+  description="Interaktiv introduktion til Git og GitHub — lær version control gennem visuelle guides, quizzer og praktiske værktøjer"
   currentPath="/"
+  wide
 >
   <div class="content">
-    <h1>Introduktion til Git og GitHub</h1>
-    <p class="lead">
-      Lær Git og GitHub gennem interaktive guides med visuelle flows,
-      trin-for-trin vejledninger og små quizzer.
-    </p>
+    <section class="landing-hero" aria-labelledby="hero-heading">
+      <div class="landing-hero__inner">
+        <div class="landing-hero__text">
+          <span class="landing-hero__eyebrow">
+            <span class="landing-hero__eyebrow-dot" aria-hidden="true"></span>
+            Interaktiv læring
+          </span>
+          <h1 id="hero-heading">
+            Lær <em>Git & GitHub</em> ved at gøre det
+          </h1>
+          <p class="landing-hero__lead">
+            Ikke endnu en tør manual. Her udforsker du version control
+            gennem visuelle flows, hands-on guides og små quizzer —
+            fra din første commit til dit første release.
+          </p>
+          <div class="landing-hero__actions">
+            <a href="/commits" class="landing-btn landing-btn--primary">
+              Start med commits →
+            </a>
+            <a href="#emner" class="landing-btn landing-btn--secondary">
+              Se alle emner
+            </a>
+          </div>
+          <div class="landing-hero__stats" aria-label="Sideoversigt">
+            <div class="landing-stat">
+              <span class="landing-stat__value">{availableCount}</span>
+              <span class="landing-stat__label">emner at udforske</span>
+            </div>
+            <div class="landing-stat">
+              <span class="landing-stat__value">100%</span>
+              <span class="landing-stat__label">gratis & i browseren</span>
+            </div>
+            <div class="landing-stat">
+              <span class="landing-stat__value">DA</span>
+              <span class="landing-stat__label">på dansk</span>
+            </div>
+          </div>
+        </div>
 
-    <section class="section" aria-labelledby="topics-heading">
-      <h2 id="topics-heading">Emner</h2>
+        <div class="landing-graph" aria-hidden="true">
+          <div class="landing-graph__header">
+            <div class="landing-graph__dots">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="landing-graph__title">git-graph — feature/login</span>
+          </div>
+          <svg class="landing-graph__svg" viewBox="0 0 420 140" xmlns="http://www.w3.org/2000/svg">
+            <line x1="30" y1="50" x2="390" y2="50" stroke="var(--color-border)" stroke-width="2"/>
+            <g class="landing-graph__commit">
+              <circle cx="60" cy="50" r="7" fill="#2563eb"/>
+            </g>
+            <g class="landing-graph__commit">
+              <circle cx="130" cy="50" r="7" fill="#2563eb"/>
+            </g>
+            <g class="landing-graph__commit">
+              <circle cx="200" cy="50" r="7" fill="#2563eb"/>
+            </g>
+            <path class="landing-graph__branch-line" d="M 200 50 Q 220 50 230 85" fill="none" stroke="var(--color-accent)" stroke-width="2"/>
+            <line x1="230" y1="85" x2="320" y2="85" stroke="var(--color-border)" stroke-width="2"/>
+            <g class="landing-graph__commit">
+              <circle cx="230" cy="85" r="6" fill="var(--color-accent)"/>
+            </g>
+            <g class="landing-graph__commit">
+              <circle cx="275" cy="85" r="6" fill="var(--color-accent)"/>
+            </g>
+            <g class="landing-graph__commit">
+              <circle cx="320" cy="85" r="6" fill="var(--color-accent)"/>
+            </g>
+            <path class="landing-graph__merge-line" d="M 320 85 Q 345 65 370 50" fill="none" stroke="#16a34a" stroke-width="2" stroke-dasharray="4 3"/>
+            <g class="landing-graph__commit">
+              <circle cx="370" cy="50" r="7" fill="#16a34a"/>
+            </g>
+            <text x="60" y="30" text-anchor="middle" font-size="10" fill="var(--color-text-muted)">main</text>
+            <text x="275" y="115" text-anchor="middle" font-size="10" fill="var(--color-text-muted)">feature/login</text>
+          </svg>
+          <div class="landing-graph__terminal">
+            <div class="landing-graph__terminal-line">
+              <span class="landing-graph__prompt">$ </span>
+              <span class="landing-graph__cmd">git checkout -b feature/login</span>
+            </div>
+            <div class="landing-graph__terminal-line">
+              <span class="landing-graph__prompt">$ </span>
+              <span class="landing-graph__cmd">git commit -m "feat: add login"</span>
+            </div>
+            <div class="landing-graph__terminal-line">
+              <span class="landing-graph__output">→ merged to main ✓</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="features-heading">
+      <div class="landing-section-header">
+        <span class="section-label">Hvad du får</span>
+        <h2 id="features-heading">Læring der føles som at kode</h2>
+        <p>
+          Hvert emne kombinerer teori med interaktion, så du forstår
+          både hvorfor og hvordan — ikke bare hvilke kommandoer du skal huske.
+        </p>
+      </div>
+      <div class="landing-features">
+        {features.map((f) => (
+          <article class="landing-feature">
+            <div class="landing-feature__icon" aria-hidden="true">{f.icon}</div>
+            <h3>{f.title}</h3>
+            <p>{f.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <section class="section" aria-labelledby="path-heading">
+      <div class="landing-section-header">
+        <span class="section-label">Anbefalet rækkefølge</span>
+        <h2 id="path-heading">Din vej gennem Git-workflowet</h2>
+        <p>
+          Følg stien fra grundlæggende commits til releases —
+          eller hop direkte til det emne, du har brug for lige nu.
+        </p>
+      </div>
+      <ol class="landing-path">
+        {learningPath.map((step, i) => (
+          <li class="landing-path__step">
+            <span class="landing-path__number">{i + 1}</span>
+            <span class="landing-path__label">{step.label}</span>
+            <p class="landing-path__desc">{step.desc}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <hr class="section-divider" />
+
+    <section class="section landing-topics" id="emner" aria-labelledby="topics-heading">
+      <div class="landing-section-header">
+        <span class="section-label">Udforsk</span>
+        <h2 id="topics-heading">Alle emner</h2>
+        <p>
+          Klik på et emne for at dykke ned i guides, visualiseringer og quizzer.
+        </p>
+      </div>
       <div class="card-grid">
-        {topics.map((topic) =>
-          topic.available && topic.href ? (
-            <a href={topic.href} class="topic-card">
-              <span class="topic-card__badge">Tilgængelig</span>
+        {topics.map((topic) => {
+          const meta = topicMeta[topic.title] ?? { icon: '📌', color: '#f05032', tag: 'emne' };
+          return topic.available && topic.href ? (
+            <a
+              href={topic.href}
+              class="landing-topic-card"
+              style={`--topic-color: ${meta.color}`}
+            >
+              <div class="landing-topic-card__top">
+                <span class="landing-topic-card__icon" aria-hidden="true">{meta.icon}</span>
+                <span class="landing-topic-card__arrow" aria-hidden="true">→</span>
+              </div>
               <h3>{topic.title}</h3>
               <p>{topic.description}</p>
+              <span class="landing-topic-card__tag">{meta.tag}</span>
             </a>
           ) : (
-            <div class="topic-card topic-card--disabled" aria-disabled="true">
-              <span class="topic-card__badge">Kommer snart</span>
+            <div class="landing-topic-card topic-card--disabled" aria-disabled="true" style={`--topic-color: ${meta.color}`}>
+              <div class="landing-topic-card__top">
+                <span class="landing-topic-card__icon" aria-hidden="true">{meta.icon}</span>
+              </div>
               <h3>{topic.title}</h3>
               <p>{topic.description}</p>
+              <span class="landing-topic-card__tag">Kommer snart</span>
             </div>
-          )
-        )}
+          );
+        })}
       </div>
+    </section>
+
+    <section class="landing-cta" aria-labelledby="cta-heading">
+      <h2 id="cta-heading">Klar til at komme i gang?</h2>
+      <p>
+        Start med commits og lær hvorfor gode beskeder og hyppige snapshots
+        er fundamentet for alt det andet.
+      </p>
+      <a href="/commits" class="landing-btn landing-btn--primary">
+        Gå til Commits →
+      </a>
     </section>
   </div>
 </BaseLayout>
+
+<style is:global>
+  @import '../styles/landing.css';
+</style>

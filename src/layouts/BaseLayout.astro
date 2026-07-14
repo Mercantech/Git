@@ -3,9 +3,10 @@ interface Props {
   title: string;
   description?: string;
   currentPath?: string;
+  wide?: boolean;
 }
 
-const { title, description = 'Introduktion til Git og GitHub', currentPath = '/' } = Astro.props;
+const { title, description = 'Introduktion til Git og GitHub', currentPath = '/', wide = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -33,7 +34,7 @@ const { title, description = 'Introduktion til Git og GitHub', currentPath = '/'
       </div>
     </header>
 
-    <main>
+    <main class:list={[{ 'site-main--wide': wide }]}>
       <slot />
     </main>
 
