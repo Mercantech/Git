@@ -90,16 +90,12 @@
 .branch-graph__legend-dot {
   width: 0.65rem;
   height: 0.65rem;
-  border-radius: 50%;
+  border-radius: 0;
 }
 
-.branch-graph__legend-dot--main { background: #2563eb; }
-.branch-graph__legend-dot--feature { background: var(--color-accent); }
-.branch-graph__legend-dot--new { background: var(--color-success); }
-
-@media (prefers-color-scheme: dark) {
-  .branch-graph__legend-dot--main { background: #60a5fa; }
-}
+.branch-graph__legend-dot--main { background: #33ff00; }
+.branch-graph__legend-dot--feature { background: #ffb000; }
+.branch-graph__legend-dot--new { background: #33ff00; }
 
 /* Compare table */
 .compare-table-wrap {

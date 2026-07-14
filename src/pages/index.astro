@@ -9,10 +9,20 @@ import { topics } from '../content/topics';
   currentPath="/"
 >
   <div class="content">
+    <div class="terminal-hero" aria-hidden="true">
+      <pre>{`   ____ _ _   ____ _   _ ____  
+  / ___(_) |_|  _ \\ | | / ___| 
+ | |  _| | __| |_) | | |\\___ \\ 
+ | |_| | | |_|  __/| |_|___) |
+  \\____|_|\\__|_|   |_|____/  
+        GIT & GITHUB — INTERACTIVE SHELL`}</pre>
+    </div>
+
+    <p class="site-status"><span class="site-status__ok">[OK]</span> session started — type a module below</p>
+
     <h1>Introduktion til Git og GitHub</h1>
-    <p class="lead">
-      Lær Git og GitHub gennem interaktive guides med visuelle flows,
-      trin-for-trin vejledninger og små quizzer.
+    <p class="lead cursor-blink">
+      Lær Git og GitHub gennem interaktive guides med visuelle flows, trin-for-trin vejledninger og små quizzer
     </p>
 
     <section class="section" aria-labelledby="topics-heading">
@@ -21,13 +31,13 @@ import { topics } from '../content/topics';
         {topics.map((topic) =>
           topic.available && topic.href ? (
             <a href={topic.href} class="topic-card">
-              <span class="topic-card__badge">Tilgængelig</span>
+              <span class="topic-card__badge">[ RUN ]</span>
               <h3>{topic.title}</h3>
               <p>{topic.description}</p>
             </a>
           ) : (
             <div class="topic-card topic-card--disabled" aria-disabled="true">
-              <span class="topic-card__badge">Kommer snart</span>
+              <span class="topic-card__badge">[ --- ]</span>
               <h3>{topic.title}</h3>
               <p>{topic.description}</p>
             </div>

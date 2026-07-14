@@ -6,6 +6,16 @@ interface Props {
 }
 
 const { title, description = 'Introduktion til Git og GitHub', currentPath = '/' } = Astro.props;
+
+const navItems = [
+  { href: '/', label: 'home', path: '/' },
+  { href: '/commits', label: 'commits', path: '/commits' },
+  { href: '/branches', label: 'branches', path: '/branches' },
+  { href: '/pull-requests', label: 'prs', path: '/pull-requests' },
+  { href: '/merge', label: 'merge', path: '/merge' },
+  { href: '/issues', label: 'issues', path: '/issues' },
+  { href: '/releases', label: 'releases', path: '/releases' },
+];
 ---
 
 <!doctype html>
@@ -14,21 +24,20 @@ const { title, description = 'Introduktion til Git og GitHub', currentPath = '/'
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#0a0a0a" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title} | Git & GitHub</title>
+    <title>{title} | git --learn</title>
   </head>
   <body>
     <header class="site-header">
       <div class="site-header__inner">
-        <a href="/" class="site-logo">Git & GitHub</a>
+        <a href="/" class="site-logo" aria-label="Forside">{'~/git [main]'}</a>
         <nav class="site-nav" aria-label="Hovednavigation">
-          <a href="/" aria-current={currentPath === '/' ? 'page' : undefined}>Forside</a>
-          <a href="/commits" aria-current={currentPath === '/commits' ? 'page' : undefined}>Commits</a>
-          <a href="/branches" aria-current={currentPath === '/branches' ? 'page' : undefined}>Branches</a>
-          <a href="/pull-requests" aria-current={currentPath === '/pull-requests' ? 'page' : undefined}>PRs</a>
-          <a href="/merge" aria-current={currentPath === '/merge' ? 'page' : undefined}>Merge</a>
-          <a href="/issues" aria-current={currentPath === '/issues' ? 'page' : undefined}>Issues</a>
-          <a href="/releases" aria-current={currentPath === '/releases' ? 'page' : undefined}>Releases</a>
+          {navItems.map((item) => (
+            <a href={item.href} aria-current={currentPath === item.path ? 'page' : undefined}>
+              {item.label}
+            </a>
+          ))}
         </nav>
       </div>
     </header>
@@ -38,7 +47,7 @@ const { title, description = 'Introduktion til Git og GitHub', currentPath = '/'
     </main>
 
     <footer class="site-footer">
-      Interaktiv introduktion til Git og GitHub
+      <span class="site-footer__status">[OK]</span> git-learn v0.1.0 — mercantec.tech
     </footer>
   </body>
 </html>
