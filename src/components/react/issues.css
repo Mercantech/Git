@@ -1,0 +1,290 @@
+.issue-simulator {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.issue-simulator__steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.issue-simulator__step {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.45rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.issue-simulator__step:hover {
+  border-color: var(--color-accent);
+}
+
+.issue-simulator__step--active {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.issue-mockup {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.issue-mockup__header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.issue-mockup__number {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.35rem;
+}
+
+.issue-mockup__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+}
+
+.issue-mockup__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.issue-mockup__badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}
+
+.issue-mockup__badge--open { background: var(--color-success-soft); color: var(--color-success); }
+.issue-mockup__badge--progress { background: #eff6ff; color: #2563eb; }
+.issue-mockup__badge--review { background: #fef3c7; color: #d97706; }
+.issue-mockup__badge--closed { background: var(--color-border); color: var(--color-text-muted); }
+
+.issue-mockup__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: var(--color-error-soft);
+  color: var(--color-error);
+}
+
+.issue-mockup__assignee {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.issue-mockup__body {
+  padding: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.issue-mockup__linked {
+  border-top: 1px solid var(--color-border);
+  padding: 1rem 1.25rem;
+  background: var(--color-bg);
+}
+
+.issue-mockup__linked-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  margin: 0 0 0.5rem;
+}
+
+.issue-mockup__linked-item {
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.issue-simulator__detail {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+}
+
+.issue-simulator__detail-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: var(--color-accent);
+}
+
+.issue-simulator__detail-desc {
+  margin: 0 0 0.75rem;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.issue-simulator__tip {
+  margin: 0;
+  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-bg);
+  border-radius: var(--radius);
+  border-left: 3px solid var(--color-accent);
+}
+
+/* Issue builder */
+.issue-builder {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.issue-builder__types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.issue-builder__type {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.issue-builder__type:hover {
+  border-color: var(--color-accent);
+}
+
+.issue-builder__type--active {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.issue-builder__preview {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.issue-builder__preview-header {
+  padding: 0.75rem 1rem;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.issue-builder__preview-body {
+  padding: 1.25rem;
+}
+
+.issue-builder__preview-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin: 0 0 1rem;
+}
+
+.issue-builder__preview-content {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  white-space: pre-line;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+.issue-builder__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.issue-builder__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.issue-builder__input {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.85rem;
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+}
+
+.issue-builder__input:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+.issue-builder__desc {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.link-keywords {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.link-keyword {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.75rem 1rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+}
+
+.link-keyword code {
+  flex-shrink: 0;
+  min-width: 8rem;
+}
+
+.link-keyword span {
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 480px) {
+  .link-keyword {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}

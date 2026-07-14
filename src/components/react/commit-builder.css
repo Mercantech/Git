@@ -1,0 +1,200 @@
+.commit-builder {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.commit-builder__preview {
+  background: var(--color-code-bg);
+  color: var(--color-code-text);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  word-break: break-word;
+}
+
+.commit-builder__prompt {
+  color: var(--color-success);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.commit-builder__message {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+.commit-builder__types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.commit-builder__type {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.commit-builder__type:hover {
+  border-color: var(--color-accent);
+}
+
+.commit-builder__type--active {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.commit-builder__detail {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+}
+
+.commit-builder__detail-desc {
+  margin: 0 0 0.5rem;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.commit-builder__detail-bump {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+}
+
+.commit-builder__detail-example {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.commit-builder__detail-example code {
+  font-size: 0.85rem;
+}
+
+.commit-builder__fields {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 2fr;
+}
+
+@media (max-width: 560px) {
+  .commit-builder__fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+.commit-builder__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.commit-builder__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.commit-builder__input {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.85rem;
+  font-size: 0.95rem;
+  font-family: var(--font-mono);
+  color: var(--color-text);
+}
+
+.commit-builder__input:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+  border-color: var(--color-accent);
+}
+
+/* Bad vs good examples */
+.examples-compare {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.example-row {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.example-row__codes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+@media (max-width: 560px) {
+  .example-row__codes {
+    grid-template-columns: 1fr;
+  }
+}
+
+.example-row__bad,
+.example-row__good {
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.example-row__bad {
+  background: var(--color-error-soft);
+  border-right: 1px solid var(--color-border);
+}
+
+.example-row__good {
+  background: var(--color-success-soft);
+}
+
+@media (max-width: 560px) {
+  .example-row__bad {
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+}
+
+.example-row__label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.25rem;
+  font-family: var(--font-sans);
+}
+
+.example-row__bad .example-row__label { color: var(--color-error); }
+.example-row__good .example-row__label { color: var(--color-success); }
+
+.example-row__why {
+  padding: 0.65rem 1rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--color-border);
+  margin: 0;
+}

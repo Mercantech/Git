@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ReleaseFlowDiagram from '../components/react/ReleaseFlowDiagram';
+import StepGuide from '../components/react/StepGuide';
+import MiniQuiz from '../components/react/MiniQuiz';
+import CommitMessageBuilder from '../components/react/CommitMessageBuilder';
+import {
+  whyCommitPoints,
+  teamConventions,
+  conventionalTypes,
+  flowNodes,
+  guideSteps,
+  badGoodExamples,
+  quizQuestions,
+} from '../content/commits';
+---
+
+<BaseLayout
+  title="Commits"
+  description="Lær hvorfor commits betyder noget, conventional commits og den tekniske proces fra ændring til push"
+  currentPath="/commits"
+>
+  <div class="content">
+    <nav class="breadcrumb" aria-label="Brødkrummer">
+      <a href="/">Forside</a> / Commits
+    </nav>
+
+    <h1>Commits</h1>
+    <p class="lead">
+      En commit er mere end en kommando — det er jeres historie, jeres samarbejde
+      og jeres sikkerhedsnet. Her får du både den bløde vinkel og den tekniske proces.
+    </p>
+
+    <section class="section" aria-labelledby="why-heading">
+      <span class="section-label">Hvorfor det betyder noget</span>
+      <h2 id="why-heading">Hvorfor er commits vigtige?</h2>
+      <p class="section-intro">
+        Hver gang I gemmer et snapshot af jeres kode, skriver I et kapitel i projektets historie.
+        Gode commits gør teamwork nemmere og fejl mindre skræmmende.
+      </p>
+
+      <ul class="intro-list">
+        {whyCommitPoints.map((point, i) => (
+          <li>
+            <span class="intro-list__icon" aria-hidden="true">{i + 1}</span>
+            <div>
+              <strong>{point.title}</strong> — {point.text}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="conventions-heading">
+      <h2 id="conventions-heading">Sådan committer vi</h2>
+      <p class="section-intro">
+        Nogle vaner gør jeres Git-historik læsbar for holdkammerater, undervisere og kunder.
+      </p>
+
+      <ul class="convention-list">
+        {teamConventions.map((item) => (
+          <li class={item.highlight ? 'convention-list__highlight' : ''}>
+            <p class="convention-list__title">{item.title}</p>
+            <p class="convention-list__text">{item.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="conventional-heading">
+      <h2 id="conventional-heading">Conventional Commits</h2>
+      <p class="section-intro">
+        Formatet <code>type(scope): beskrivelse</code> er standard i professionelle teams og open source.
+        Det kobler direkte til release-noter og semver — præcis som I så i Dokploy-eksemplet med
+        <code>fix(backups)</code> og <code>chore(dependencies)</code>.
+      </p>
+
+      <CommitMessageBuilder client:visible types={conventionalTypes} />
+    </section>
+
+    <section class="section" aria-labelledby="examples-heading">
+      <h2 id="examples-heading">Dårlige vs. gode beskeder</h2>
+      <p class="section-intro">
+        Beskeden er til mennesker — ikke bare til Git. Sammenlign:
+      </p>
+
+      <div class="examples-compare">
+        {badGoodExamples.map((ex) => (
+          <div class="example-row">
+            <div class="example-row__codes">
+              <div class="example-row__bad">
+                <div class="example-row__label">Undgå</div>
+                <code>{ex.bad}</code>
+              </div>
+              <div class="example-row__good">
+                <div class="example-row__label">Gør i stedet</div>
+                <code>{ex.good}</code>
+              </div>
+            </div>
+            <p class="example-row__why">{ex.why}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <section class="section" aria-labelledby="flow-heading">
+      <span class="section-label">Den tekniske del</span>
+      <h2 id="flow-heading">Fra ændring til push</h2>
+      <p class="section-intro">
+        Git har tre "zoner": working directory, staging area og repository.
+        Klik på hvert trin for at se hvad der sker.
+      </p>
+      <ReleaseFlowDiagram client:visible nodes={flowNodes} />
+    </section>
+
+    <section class="section" aria-labelledby="guide-heading">
+      <h2 id="guide-heading">Trin-for-trin guide</h2>
+      <p class="section-intro">
+        Sådan laver du din første rigtige commit — fra status til push.
+      </p>
+      <StepGuide client:visible steps={guideSteps} />
+    </section>
+
+    <section class="section" aria-labelledby="quiz-heading">
+      <h2 id="quiz-heading">Test din viden</h2>
+      <p class="section-intro">
+        Svar på spørgsmålene for at tjekke om du har styr på commits og conventional commits.
+      </p>
+      <MiniQuiz client:visible questions={quizQuestions} />
+    </section>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  @import '../components/react/commit-builder.css';
+</style>

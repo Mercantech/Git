@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import IssueLifecycleSimulator from '../components/react/IssueLifecycleSimulator';
+import IssueTemplateBuilder from '../components/react/IssueTemplateBuilder';
+import ReleaseFlowDiagram from '../components/react/ReleaseFlowDiagram';
+import StepGuide from '../components/react/StepGuide';
+import MiniQuiz from '../components/react/MiniQuiz';
+import {
+  whyIssuePoints,
+  teamConventions,
+  issueTypes,
+  workflowSteps,
+  flowNodes,
+  guideSteps,
+  goodBadExamples,
+  linkingKeywords,
+  quizQuestions,
+} from '../content/issues';
+---
+
+<BaseLayout
+  title="Issues"
+  description="Lær at spore opgaver, bugs og features med GitHub Issues og koble dem til PRs og releases"
+  currentPath="/issues"
+>
+  <div class="content">
+    <nav class="breadcrumb" aria-label="Brødkrummer">
+      <a href="/">Forside</a> / Issues
+    </nav>
+
+    <h1>Issues</h1>
+    <p class="lead">
+      Issues er jeres opgaveliste på GitHub — fra kundens bug til sprint-feature,
+      helt til lukket via pull request og release.
+    </p>
+
+    <section class="section" aria-labelledby="why-heading">
+      <span class="section-label">Hvorfor det betyder noget</span>
+      <h2 id="why-heading">Hvorfor bruger vi issues?</h2>
+      <p class="section-intro">
+        Uden issues forsvinder opgaver i chatten. Med issues har I struktur, ansvar
+        og sporbarhed hele vejen fra idé til leverance.
+      </p>
+
+      <ul class="intro-list">
+        {whyIssuePoints.map((point, i) => (
+          <li>
+            <span class="intro-list__icon" aria-hidden="true">{i + 1}</span>
+            <div>
+              <strong>{point.title}</strong> — {point.text}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="conventions-heading">
+      <h2 id="conventions-heading">Sådan arbejder vi med issues</h2>
+      <p class="section-intro">
+        Vaner der gør sprint og samarbejde med kunden forudsigeligt.
+      </p>
+
+      <ul class="convention-list">
+        {teamConventions.map((item) => (
+          <li class={item.highlight ? 'convention-list__highlight' : ''}>
+            <p class="convention-list__title">{item.title}</p>
+            <p class="convention-list__text">{item.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="workflow-heading">
+      <h2 id="workflow-heading">Issue-livscyklus</h2>
+      <p class="section-intro">
+        Fra oprettelse til lukket via PR — klik gennem trinene og følg issue #42.
+      </p>
+
+      <IssueLifecycleSimulator client:visible steps={workflowSteps} />
+    </section>
+
+    <section class="section" aria-labelledby="template-heading">
+      <h2 id="template-heading">Issue-skabeloner</h2>
+      <p class="section-intro">
+        Bug, feature og chore har forskellig struktur. Vælg type og brug skabelonen.
+      </p>
+
+      <IssueTemplateBuilder client:visible types={issueTypes} />
+    </section>
+
+    <section class="section" aria-labelledby="linking-heading">
+      <h2 id="linking-heading">Kobl issues til PRs</h2>
+      <p class="section-intro">
+        Keywords i PR-beskrivelsen styrer om issue lukkes automatisk ved merge.
+      </p>
+
+      <div class="link-keywords">
+        {linkingKeywords.map((item) => (
+          <div class="link-keyword">
+            <code>{item.keyword}</code>
+            <span>{item.effect}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="examples-heading">
+      <h2 id="examples-heading">Dårlige vs. gode issues</h2>
+      <p class="section-intro">Kvalitet i issues sparer tid i review og sprint.</p>
+
+      <div class="examples-compare">
+        {goodBadExamples.map((ex) => (
+          <div class="example-row">
+            <div class="example-row__codes">
+              <div class="example-row__bad">
+                <div class="example-row__label">Undgå</div>
+                <code>{ex.bad}</code>
+              </div>
+              <div class="example-row__good">
+                <div class="example-row__label">Gør i stedet</div>
+                <code>{ex.good}</code>
+              </div>
+            </div>
+            <p class="example-row__why">{ex.why}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <section class="section" aria-labelledby="flow-heading">
+      <span class="section-label">Den tekniske del</span>
+      <h2 id="flow-heading">Fra issue til release</h2>
+      <p class="section-intro">
+        Issues er startpunktet i jeres workflow — koblet til branch, PR, merge og release.
+      </p>
+      <ReleaseFlowDiagram client:visible nodes={flowNodes} />
+    </section>
+
+    <section class="section" aria-labelledby="guide-heading">
+      <h2 id="guide-heading">Trin-for-trin guide</h2>
+      <p class="section-intro">
+        Sådan opretter du et issue og lukker det via pull request.
+      </p>
+      <StepGuide client:visible steps={guideSteps} />
+    </section>
+
+    <section class="section" aria-labelledby="quiz-heading">
+      <h2 id="quiz-heading">Test din viden</h2>
+      <p class="section-intro">
+        Svar på spørgsmålene for at tjekke om du har styr på GitHub Issues.
+      </p>
+      <MiniQuiz client:visible questions={quizQuestions} />
+    </section>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  @import '../components/react/issues.css';
+  @import '../components/react/commit-builder.css';
+</style>

@@ -1,0 +1,134 @@
+.branch-graph {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.branch-graph__steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.branch-graph__step {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.45rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.branch-graph__step:hover {
+  border-color: var(--color-accent);
+}
+
+.branch-graph__step--active {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.branch-graph__canvas {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1rem;
+  overflow-x: auto;
+}
+
+.branch-graph__svg {
+  display: block;
+  margin: 0 auto;
+  min-width: 320px;
+}
+
+.branch-graph__detail {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+}
+
+.branch-graph__detail-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: var(--color-accent);
+}
+
+.branch-graph__detail-desc {
+  margin: 0 0 1rem;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.branch-graph__detail pre {
+  margin: 0;
+}
+
+.branch-graph__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.branch-graph__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.branch-graph__legend-dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+}
+
+.branch-graph__legend-dot--main { background: #2563eb; }
+.branch-graph__legend-dot--feature { background: var(--color-accent); }
+.branch-graph__legend-dot--new { background: var(--color-success); }
+
+@media (prefers-color-scheme: dark) {
+  .branch-graph__legend-dot--main { background: #60a5fa; }
+}
+
+/* Compare table */
+.compare-table-wrap {
+  overflow-x: auto;
+  margin-top: 0.5rem;
+}
+
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.compare-table th,
+.compare-table td {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.compare-table th {
+  background: var(--color-bg);
+  font-weight: 700;
+}
+
+.compare-table td:first-child {
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.compare-table code {
+  font-size: 0.85rem;
+}

@@ -21,8 +21,12 @@ npm run dev
 
 ## Emner
 
+- **Commits** — conventional commits, staging og push (`/commits`)
+- **Branches** — feature branches og merge-workflow (`/branches`)
+- **Pull Requests** — code review og merge til main (`/pull-requests`)
+- **Merge** — strategier og løsning af konflikter (`/merge`)
+- **Issues** — opgavesporing, sprint-board og PR-kobling (`/issues`)
 - **Releases** — Git-tags, GitHub Releases og GitHub Actions (`/releases`)
-- Branches, Pull Requests og Issues — kommer snart
 
 ## Projektstruktur
 

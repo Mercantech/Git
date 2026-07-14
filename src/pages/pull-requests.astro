@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PullRequestSimulator from '../components/react/PullRequestSimulator';
+import ReleaseFlowDiagram from '../components/react/ReleaseFlowDiagram';
+import StepGuide from '../components/react/StepGuide';
+import MiniQuiz from '../components/react/MiniQuiz';
+import {
+  whyPrPoints,
+  teamConventions,
+  prDescriptionTemplate,
+  reviewChecklist,
+  workflowSteps,
+  flowNodes,
+  guideSteps,
+  goodBadExamples,
+  quizQuestions,
+} from '../content/pull-requests';
+---
+
+<BaseLayout
+  title="Pull Requests"
+  description="Lær code review, PR-beskrivelser og merge til main"
+  currentPath="/pull-requests"
+>
+  <div class="content">
+    <nav class="breadcrumb" aria-label="Brødkrummer">
+      <a href="/">Forside</a> / Pull Requests
+    </nav>
+
+    <h1>Pull Requests</h1>
+    <p class="lead">
+      En pull request er jeres kvalitetsport til main — et sted for review, dialog
+      og fælles ansvar. Her får du både den bløde vinkel og den tekniske proces.
+    </p>
+
+    <section class="section" aria-labelledby="why-heading">
+      <span class="section-label">Hvorfor det betyder noget</span>
+      <h2 id="why-heading">Hvorfor pull requests?</h2>
+      <p class="section-intro">
+        I professionelle teams merges der ikke bare kode direkte til main.
+        PRs sikrer kvalitet, synlighed og læring — også i jeres elevprojekter.
+      </p>
+
+      <ul class="intro-list">
+        {whyPrPoints.map((point, i) => (
+          <li>
+            <span class="intro-list__icon" aria-hidden="true">{i + 1}</span>
+            <div>
+              <strong>{point.title}</strong> — {point.text}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="conventions-heading">
+      <h2 id="conventions-heading">Sådan laver vi gode PRs</h2>
+      <p class="section-intro">
+        Vaner der gør review hurtigt, konstruktivt og professionelt.
+      </p>
+
+      <ul class="convention-list">
+        {teamConventions.map((item) => (
+          <li class={item.highlight ? 'convention-list__highlight' : ''}>
+            <p class="convention-list__title">{item.title}</p>
+            <p class="convention-list__text">{item.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="workflow-heading">
+      <h2 id="workflow-heading">PR-livscyklus</h2>
+      <p class="section-intro">
+        Fra oprettelse til merge — klik gennem trinene og se hvordan en PR typisk udvikler sig.
+      </p>
+
+      <PullRequestSimulator client:visible steps={workflowSteps} />
+    </section>
+
+    <section class="section" aria-labelledby="template-heading">
+      <h2 id="template-heading">PR-beskrivelse — skabelon</h2>
+      <p class="section-intro">
+        Copy-paste og udfyld. En god beskrivelse sparer reviewer for gætteri.
+      </p>
+
+      <div class="template-block code-block">
+        <div class="code-block__label">PR-beskrivelse</div>
+        <pre><code>{prDescriptionTemplate}</code></pre>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="review-heading">
+      <h2 id="review-heading">Review-tjekliste</h2>
+      <p class="section-intro">
+        Brug som reviewer — eller tjek din egen PR inden du beder om review.
+      </p>
+
+      <ul class="checklist">
+        {reviewChecklist.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="examples-heading">
+      <h2 id="examples-heading">Dårlige vs. gode PRs</h2>
+      <p class="section-intro">Titler, tone og størrelse betyder noget.</p>
+
+      <div class="examples-compare">
+        {goodBadExamples.map((ex) => (
+          <div class="example-row">
+            <div class="example-row__codes">
+              <div class="example-row__bad">
+                <div class="example-row__label">Undgå</div>
+                <code>{ex.bad}</code>
+              </div>
+              <div class="example-row__good">
+                <div class="example-row__label">Gør i stedet</div>
+                <code>{ex.good}</code>
+              </div>
+            </div>
+            <p class="example-row__why">{ex.why}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <section class="section" aria-labelledby="flow-heading">
+      <span class="section-label">Den tekniske del</span>
+      <h2 id="flow-heading">Fra push til merge</h2>
+      <p class="section-intro">
+        Pull requests lever på GitHub — men Git-kommandoerne er stadig en del af flowet.
+      </p>
+      <ReleaseFlowDiagram client:visible nodes={flowNodes} />
+    </section>
+
+    <section class="section" aria-labelledby="guide-heading">
+      <h2 id="guide-heading">Trin-for-trin guide</h2>
+      <p class="section-intro">
+        Sådan opretter du en PR, får review og merger ind i main.
+      </p>
+      <StepGuide client:visible steps={guideSteps} />
+    </section>
+
+    <section class="section" aria-labelledby="quiz-heading">
+      <h2 id="quiz-heading">Test din viden</h2>
+      <p class="section-intro">
+        Svar på spørgsmålene for at tjekke om du har styr på pull requests.
+      </p>
+      <MiniQuiz client:visible questions={quizQuestions} />
+    </section>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  @import '../components/react/pr-simulator.css';
+  @import '../components/react/commit-builder.css';
+</style>

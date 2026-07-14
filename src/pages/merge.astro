@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MergeStrategyExplorer from '../components/react/MergeStrategyExplorer';
+import MergeConflictResolver from '../components/react/MergeConflictResolver';
+import ReleaseFlowDiagram from '../components/react/ReleaseFlowDiagram';
+import StepGuide from '../components/react/StepGuide';
+import MiniQuiz from '../components/react/MiniQuiz';
+import {
+  whyMergePoints,
+  teamConventions,
+  mergeStrategies,
+  conflictSteps,
+  flowNodes,
+  guideSteps,
+  preventionTips,
+  quizQuestions,
+} from '../content/merge';
+---
+
+<BaseLayout
+  title="Merge og merge-konflikter"
+  description="Lær merge-strategier, løs konflikter og integrer kode sikkert til main"
+  currentPath="/merge"
+>
+  <div class="content">
+    <nav class="breadcrumb" aria-label="Brødkrummer">
+      <a href="/">Forside</a> / Merge
+    </nav>
+
+    <h1>Merge og merge-konflikter</h1>
+    <p class="lead">
+      Merge er hvor jeres arbejde møder teamets — og konflikter er en normal del af samarbejdet.
+      Her lærer du strategier, løsning og gode vaner.
+    </p>
+
+    <section class="section" aria-labelledby="why-heading">
+      <span class="section-label">Hvorfor det betyder noget</span>
+      <h2 id="why-heading">Hvad er merge — og hvorfor konflikter?</h2>
+      <p class="section-intro">
+        Merge samler to grene. Når I begge har ændret samme linje, kan Git ikke gætte
+        hvad der er rigtigt — så beder den jer om at beslutte.
+      </p>
+
+      <ul class="intro-list">
+        {whyMergePoints.map((point, i) => (
+          <li>
+            <span class="intro-list__icon" aria-hidden="true">{i + 1}</span>
+            <div>
+              <strong>{point.title}</strong> — {point.text}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="conventions-heading">
+      <h2 id="conventions-heading">Sådan merger vi</h2>
+      <p class="section-intro">
+        Konventioner der gør merge forudsigeligt og main stabil.
+      </p>
+
+      <ul class="convention-list">
+        {teamConventions.map((item) => (
+          <li class={item.highlight ? 'convention-list__highlight' : ''}>
+            <p class="convention-list__title">{item.title}</p>
+            <p class="convention-list__text">{item.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="strategies-heading">
+      <h2 id="strategies-heading">Merge-strategier</h2>
+      <p class="section-intro">
+        På GitHub kan I vælge hvordan en PR merges ind i main. Her er de tre muligheder.
+      </p>
+
+      <MergeStrategyExplorer client:visible strategies={mergeStrategies} />
+    </section>
+
+    <section class="section" aria-labelledby="conflict-heading">
+      <h2 id="conflict-heading">Løs merge-konflikter</h2>
+      <p class="section-intro">
+        Konfliktmarkører (<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>)
+        viser hvad der skal besluttes. Gå trin for trin og prøv at vælge løsning.
+      </p>
+
+      <MergeConflictResolver client:visible steps={conflictSteps} />
+    </section>
+
+    <section class="section" aria-labelledby="prevent-heading">
+      <h2 id="prevent-heading">Forebyg konflikter</h2>
+      <p class="section-intro">
+        Færre konflikter betyder mindre stress og hurtigere merge.
+      </p>
+
+      <ul class="tips-list">
+        {preventionTips.map((tip) => (
+          <li>{tip}</li>
+        ))}
+      </ul>
+    </section>
+
+    <hr class="section-divider" />
+
+    <section class="section" aria-labelledby="flow-heading">
+      <span class="section-label">Den tekniske del</span>
+      <h2 id="flow-heading">Merge-flow</h2>
+      <p class="section-intro">
+        Typisk flow: opdater branch fra main → løs konflikter → merge PR på GitHub → pull main lokalt.
+      </p>
+      <ReleaseFlowDiagram client:visible nodes={flowNodes} />
+    </section>
+
+    <section class="section" aria-labelledby="guide-heading">
+      <h2 id="guide-heading">Trin-for-trin guide</h2>
+      <p class="section-intro">
+        Fra forebyggelse til løst konflikt og færdig merge.
+      </p>
+      <StepGuide client:visible steps={guideSteps} />
+    </section>
+
+    <section class="section" aria-labelledby="quiz-heading">
+      <h2 id="quiz-heading">Test din viden</h2>
+      <p class="section-intro">
+        Svar på spørgsmålene for at tjekke om du har styr på merge og konflikter.
+      </p>
+      <MiniQuiz client:visible questions={quizQuestions} />
+    </section>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  @import '../components/react/merge.css';
+</style>

@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BranchWorkflowVisualizer from '../components/react/BranchWorkflowVisualizer';
+import ReleaseFlowDiagram from '../components/react/ReleaseFlowDiagram';
+import StepGuide from '../components/react/StepGuide';
+import MiniQuiz from '../components/react/MiniQuiz';
+import {
+  whyBranchPoints,
+  teamConventions,
+  branchNamingExamples,
+  workflowSteps,
+  flowNodes,
+  guideSteps,
+  quizQuestions,
+} from '../content/branches';
+---
+
+<BaseLayout
+  title="Branches"
+  description="Lær feature branches, main vs. branch workflow og merge via pull request"
+  currentPath="/branches"
+>
+  <div class="content">
+    <nav class="breadcrumb" aria-label="Brødkrummer">
+      <a href="/">Forside</a> / Branches
+    </nav>
+
+    <h1>Branches</h1>
+    <p class="lead">
+      Branches er jeres parallelle spor — I kan bygge features isoleret mens main
+      forbliver klar til kunden. Her får du både den bløde vinkel og den tekniske proces.
+    </p>
+
+    <section class="section" aria-labelledby="why-heading">
+      <span class="section-label">Hvorfor det betyder noget</span>
+      <h2 id="why-heading">Hvorfor bruger vi branches?</h2>
+      <p class="section-intro">
+        I et team kan I ikke alle arbejde direkte på main. Branches giver struktur,
+        tryghed og en klar vej fra idé til leverance.
+      </p>
+
+      <ul class="intro-list">
+        {whyBranchPoints.map((point, i) => (
+          <li>
+            <span class="intro-list__icon" aria-hidden="true">{i + 1}</span>
+            <div>
+              <strong>{point.title}</strong> — {point.text}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="conventions-heading">
+      <h2 id="conventions-heading">Sådan arbejder vi med branches</h2>
+      <p class="section-intro">
+        Konventioner der holder jeres workflow forudsigeligt — for jer selv, teamet og kunden.
+      </p>
+
+      <ul class="convention-list">
+        {teamConventions.map((item) => (
+          <li class={item.highlight ? 'convention-list__highlight' : ''}>
+            <p class="convention-list__title">{item.title}</p>
+            <p class="convention-list__text">{item.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="workflow-heading">
+      <h2 id="workflow-heading">Feature branch workflow</h2>
+      <p class="section-intro">
+        Fra main → feature branch → commits → push → pull request → merge.
+        Det er den centrale arbejdsgang I skal mestre.
+      </p>
+
+      <BranchWorkflowVisualizer client:visible steps={workflowSteps} />
+    </section>
+
+    <section class="section" aria-labelledby="naming-heading">
+      <h2 id="naming-heading">Navngivning af branches</h2>
+      <p class="section-intro">
+        Et godt navn fortæller hvad branchen gør — uden at man skal spørge ejeren.
+      </p>
+
+      <div class="examples-compare">
+        {branchNamingExamples.map((ex) => (
+          <div class="example-row">
+            <div class="example-row__codes">
+              <div class="example-row__bad">
+                <div class="example-row__label">Undgå</div>
+                <code>{ex.bad}</code>
+              </div>
+              <div class="example-row__good">
+                <div class="example-row__label">Gør i stedet</div>
+                <code>{ex.good}</code>
+              </div>
+            </div>
+            <p class="example-row__why">{ex.why}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <section class="section" aria-labelledby="flow-heading">
+      <span class="section-label">Den tekniske del</span>
+      <h2 id="flow-heading">Kommandoer i workflowet</h2>
+      <p class="section-intro">
+        De vigtigste Git-kommandoer når du arbejder med branches.
+      </p>
+      <ReleaseFlowDiagram client:visible nodes={flowNodes} />
+    </section>
+
+    <section class="section" aria-labelledby="guide-heading">
+      <h2 id="guide-heading">Trin-for-trin guide</h2>
+      <p class="section-intro">
+        Sådan opretter du en feature branch og merger den ind i main via pull request.
+      </p>
+      <StepGuide client:visible steps={guideSteps} />
+    </section>
+
+    <section class="section" aria-labelledby="quiz-heading">
+      <h2 id="quiz-heading">Test din viden</h2>
+      <p class="section-intro">
+        Svar på spørgsmålene for at tjekke om du har styr på branches og workflow.
+      </p>
+      <MiniQuiz client:visible questions={quizQuestions} />
+    </section>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  @import '../components/react/branch-graph.css';
+  @import '../components/react/commit-builder.css';
+</style>

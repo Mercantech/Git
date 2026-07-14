@@ -23,6 +23,11 @@ const { title, description = 'Introduktion til Git og GitHub', currentPath = '/'
         <a href="/" class="site-logo">Git & GitHub</a>
         <nav class="site-nav" aria-label="Hovednavigation">
           <a href="/" aria-current={currentPath === '/' ? 'page' : undefined}>Forside</a>
+          <a href="/commits" aria-current={currentPath === '/commits' ? 'page' : undefined}>Commits</a>
+          <a href="/branches" aria-current={currentPath === '/branches' ? 'page' : undefined}>Branches</a>
+          <a href="/pull-requests" aria-current={currentPath === '/pull-requests' ? 'page' : undefined}>PRs</a>
+          <a href="/merge" aria-current={currentPath === '/merge' ? 'page' : undefined}>Merge</a>
+          <a href="/issues" aria-current={currentPath === '/issues' ? 'page' : undefined}>Issues</a>
           <a href="/releases" aria-current={currentPath === '/releases' ? 'page' : undefined}>Releases</a>
         </nav>
       </div>

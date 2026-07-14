@@ -387,9 +387,3 @@ export const quizQuestions: QuizQuestion[] = [
       '0.x bruges mens API og funktionalitet stadig ændrer sig markant. v1.0.0 reserveres typisk til første stabile version klar til produktion.',
   },
 ];
-
-export const upcomingTopics = [
-  { title: 'Branches', description: 'Arbejd med branches og merge-strategier', available: false },
-  { title: 'Pull Requests', description: 'Review, diskussion og merge af ændringer', available: false },
-  { title: 'Issues', description: 'Spor bugs og features med issues', available: false },
-];
