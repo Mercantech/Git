@@ -38,7 +38,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: none;
+  box-shadow: var(--shadow-md);
 }
 
 .issue-mockup__header {
@@ -69,21 +69,19 @@
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.2rem 0.55rem;
-  border-radius: 0;
-  border: 1px solid var(--color-border);
+  border-radius: 999px;
 }
 
-.issue-mockup__badge--open { background: var(--color-success-soft); color: var(--color-success); border-color: var(--color-success); }
-.issue-mockup__badge--progress { background: rgba(51, 255, 0, 0.08); color: #33ff00; border-color: #33ff00; }
-.issue-mockup__badge--review { background: rgba(255, 176, 0, 0.08); color: #ffb000; border-color: #ffb000; }
+.issue-mockup__badge--open { background: var(--color-success-soft); color: var(--color-success); }
+.issue-mockup__badge--progress { background: #eff6ff; color: #2563eb; }
+.issue-mockup__badge--review { background: #fef3c7; color: #d97706; }
 .issue-mockup__badge--closed { background: var(--color-border); color: var(--color-text-muted); }
 
 .issue-mockup__label {
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.2rem 0.55rem;
-  border-radius: 0;
-  border: 1px solid var(--color-error);
+  border-radius: 999px;
   background: var(--color-error-soft);
   color: var(--color-error);
 }

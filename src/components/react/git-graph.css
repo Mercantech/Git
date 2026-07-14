@@ -68,20 +68,24 @@
 .git-graph__legend-dot {
   width: 0.65rem;
   height: 0.65rem;
-  border-radius: 0;
+  border-radius: 50%;
 }
 
-.git-graph__legend-dot--main { background: #33ff00; }
-.git-graph__legend-dot--feature { background: #ffb000; }
-.git-graph__legend-dot--merge { background: #33ff00; }
-.git-graph__legend-dot--tag { background: #ffb000; }
-.git-graph__legend-dot--actions { background: #ffb000; }
-.git-graph__legend-dot--working { background: #228822; }
-.git-graph__legend-dot--staging { background: #ffb000; }
-.git-graph__legend-dot--commit { background: #33ff00; }
-.git-graph__legend-dot--remote { background: #33ff00; }
+.git-graph__legend-dot--main { background: #2563eb; }
+.git-graph__legend-dot--feature { background: var(--color-accent); }
+.git-graph__legend-dot--merge { background: #16a34a; }
+.git-graph__legend-dot--tag { background: #7c3aed; }
+.git-graph__legend-dot--actions { background: #d97706; }
+.git-graph__legend-dot--working { background: #94a3b8; }
+.git-graph__legend-dot--staging { background: #fbbf24; }
+.git-graph__legend-dot--commit { background: #2563eb; }
+.git-graph__legend-dot--remote { background: #16a34a; }
 .git-graph__legend-dot--conflict { background: var(--color-error); }
-.git-graph__legend-dot--issue { background: #ffb000; }
+.git-graph__legend-dot--issue { background: #ec4899; }
+
+@media (prefers-color-scheme: dark) {
+  .git-graph__legend-dot--main { background: #60a5fa; }
+}
 
 .git-graph__detail {
   background: var(--color-surface);

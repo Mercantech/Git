@@ -38,7 +38,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: none;
+  box-shadow: var(--shadow-md);
 }
 
 .pr-mockup__header {
@@ -65,15 +65,20 @@
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.2rem 0.55rem;
-  border-radius: 0;
-  border: 1px solid var(--color-border);
+  border-radius: 999px;
 }
 
-.pr-mockup__badge--open { background: rgba(51, 255, 0, 0.08); color: #33ff00; border-color: #33ff00; }
-.pr-mockup__badge--review { background: rgba(255, 176, 0, 0.08); color: #ffb000; border-color: #ffb000; }
-.pr-mockup__badge--changes { background: var(--color-error-soft); color: var(--color-error); border-color: var(--color-error); }
-.pr-mockup__badge--approved { background: var(--color-success-soft); color: var(--color-success); border-color: var(--color-success); }
-.pr-mockup__badge--merged { background: rgba(51, 255, 0, 0.12); color: #33ff00; border-color: #33ff00; }
+.pr-mockup__badge--open { background: #eff6ff; color: #2563eb; }
+.pr-mockup__badge--review { background: #fef3c7; color: #d97706; }
+.pr-mockup__badge--changes { background: var(--color-error-soft); color: var(--color-error); }
+.pr-mockup__badge--approved { background: var(--color-success-soft); color: var(--color-success); }
+.pr-mockup__badge--merged { background: #f3e8ff; color: #7c3aed; }
+
+@media (prefers-color-scheme: dark) {
+  .pr-mockup__badge--open { background: #1e293b; color: #60a5fa; }
+  .pr-mockup__badge--review { background: #422006; color: #fbbf24; }
+  .pr-mockup__badge--merged { background: #2e1065; color: #c4b5fd; }
+}
 
 .pr-mockup__body {
   padding: 1.25rem;
@@ -105,7 +110,7 @@
 }
 
 .pr-mockup__check-icon--pass { color: var(--color-success); }
-.pr-mockup__check-icon--pending { color: #ffb000; }
+.pr-mockup__check-icon--pending { color: #d97706; }
 .pr-mockup__check-icon--fail { color: var(--color-error); }
 
 .pr-mockup__comments {
@@ -159,9 +164,9 @@
 }
 
 .pr-mockup__btn--primary {
-  background: var(--term-fg, #33ff00);
-  border-color: var(--term-fg, #33ff00);
-  color: #0a0a0a;
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: white;
 }
 
 .pr-mockup__btn--disabled {
