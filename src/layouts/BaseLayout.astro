@@ -38,7 +38,12 @@ const { title, description = 'Introduktion til Git og GitHub', currentPath = '/'
           aria-pressed="false"
           aria-label="Start præsentationstilstand"
         >
-          Præsentation
+          <svg class="present-toggle__icon present-toggle__icon--play" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 5.5v13l11-6.5-11-6.5z" fill="currentColor"/>
+          </svg>
+          <svg class="present-toggle__icon present-toggle__icon--stop" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="7" y="7" width="10" height="10" rx="1.5" fill="currentColor"/>
+          </svg>
         </button>
       </div>
     </header>

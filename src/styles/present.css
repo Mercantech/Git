@@ -1,28 +1,49 @@
 /* Presentation mode — one slide at a time, interactivity preserved */
 
 .present-toggle {
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
   color: var(--color-text-muted);
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: 0.35rem 0.75rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 999px;
   cursor: pointer;
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
-  white-space: nowrap;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
 }
 
 .present-toggle:hover {
-  border-color: var(--color-accent);
   color: var(--color-accent);
+  background: var(--color-accent-soft);
+  border-color: var(--color-border);
 }
 
 .present-toggle[aria-pressed="true"] {
-  background: var(--color-accent-soft);
-  border-color: var(--color-accent);
   color: var(--color-accent);
+  background: var(--color-accent-soft);
+  border-color: rgba(240, 80, 50, 0.25);
+}
+
+.present-toggle__icon {
+  width: 1rem;
+  height: 1rem;
+  display: block;
+}
+
+.present-toggle__icon--stop {
+  display: none;
+}
+
+.present-toggle[aria-pressed="true"] .present-toggle__icon--play {
+  display: none;
+}
+
+.present-toggle[aria-pressed="true"] .present-toggle__icon--stop {
+  display: block;
 }
 
 .present-controls {
@@ -116,23 +137,41 @@ body.present-mode .section-divider {
 
 body.present-mode main {
   max-width: 100%;
+  min-height: calc(100vh - 3.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 1rem;
   padding-bottom: 5rem;
 }
 
 body.present-mode .content {
+  width: 100%;
   max-width: 960px;
+  margin: 0 auto;
 }
 
 body.present-mode .present-slide-hidden {
   display: none !important;
 }
 
-body.present-mode .present-slide-active {
+body.present-mode .present-slide-frame.present-slide-active {
   min-height: calc(100vh - 9rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: stretch;
+  width: 100%;
   animation: present-slide-in 0.25s ease;
+}
+
+body.present-mode .present-slide-frame--group.present-slide-active {
+  align-items: center;
+  text-align: center;
+}
+
+body.present-mode .present-slide-frame--group.present-slide-active .lead {
+  max-width: 36rem;
 }
 
 body.present-mode .present-slide-active.section {
@@ -143,6 +182,10 @@ body.present-mode .present-slide-active.landing-hero {
   margin: 0;
   padding: 2rem 0 3rem;
   border-bottom: none;
+}
+
+body.present-mode .present-slide-active.landing-hero .landing-hero__inner {
+  width: 100%;
 }
 
 @keyframes present-slide-in {
@@ -157,7 +200,7 @@ body.present-mode .present-slide-active.landing-hero {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body.present-mode .present-slide-active {
+  body.present-mode .present-slide-frame.present-slide-active {
     animation: none;
   }
 }

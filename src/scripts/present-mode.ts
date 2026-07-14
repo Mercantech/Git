@@ -1,4 +1,4 @@
-type Slide = { elements: HTMLElement[] };
+type Slide = { frame: HTMLElement };
 
 const STORAGE_KEY = 'git-intro-present-mode';
 
@@ -6,12 +6,12 @@ function buildSlides(): Slide[] {
   const content = document.querySelector<HTMLElement>('main .content');
   if (!content) return [];
 
-  const slides: Slide[] = [];
+  const raw: HTMLElement[][] = [];
   let intro: HTMLElement[] = [];
 
   const flushIntro = () => {
     if (intro.length === 0) return;
-    slides.push({ elements: [...intro] });
+    raw.push([...intro]);
     intro = [];
   };
 
@@ -23,16 +23,24 @@ function buildSlides(): Slide[] {
     }
     if (el.matches('.landing-hero, .section, .landing-cta')) {
       flushIntro();
-      slides.push({ elements: [el] });
+      raw.push([el]);
     }
   }
 
   flushIntro();
-  return slides;
-}
 
-function allSlideElements(slides: Slide[]): HTMLElement[] {
-  return slides.flatMap((s) => s.elements);
+  return raw.map((elements) => {
+    if (elements.length === 1) {
+      elements[0].classList.add('present-slide-frame');
+      return { frame: elements[0] };
+    }
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'present-slide-frame present-slide-frame--group';
+    elements[0].parentNode!.insertBefore(wrapper, elements[0]);
+    for (const el of elements) wrapper.appendChild(el);
+    return { frame: wrapper };
+  });
 }
 
 class PresentMode {
@@ -85,7 +93,10 @@ class PresentMode {
 
     if (this.toggleBtn) {
       this.toggleBtn.setAttribute('aria-pressed', String(on));
-      this.toggleBtn.textContent = on ? 'Afslut' : 'Præsentation';
+      this.toggleBtn.setAttribute(
+        'aria-label',
+        on ? 'Afslut præsentationstilstand' : 'Start præsentationstilstand',
+      );
     }
 
     if (on) {
@@ -101,8 +112,8 @@ class PresentMode {
   }
 
   private showAll() {
-    for (const el of allSlideElements(this.slides)) {
-      el.classList.remove('present-slide-hidden', 'present-slide-active');
+    for (const { frame } of this.slides) {
+      frame.classList.remove('present-slide-hidden', 'present-slide-active');
     }
   }
 
@@ -111,10 +122,8 @@ class PresentMode {
 
     this.slides.forEach((slide, idx) => {
       const isActive = idx === this.index;
-      for (const el of slide.elements) {
-        el.classList.toggle('present-slide-hidden', !isActive);
-        el.classList.toggle('present-slide-active', isActive);
-      }
+      slide.frame.classList.toggle('present-slide-hidden', !isActive);
+      slide.frame.classList.toggle('present-slide-active', isActive);
     });
 
     if (this.counter) {
@@ -124,8 +133,7 @@ class PresentMode {
     if (this.prevBtn) this.prevBtn.disabled = this.index === 0;
     if (this.nextBtn) this.nextBtn.disabled = this.index === this.slides.length - 1;
 
-    const firstEl = this.slides[this.index]?.elements[0];
-    firstEl?.scrollIntoView({ block: 'start' });
+    this.slides[this.index]?.frame.scrollIntoView({ block: 'center' });
   }
 
   private prev() {
