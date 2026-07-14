@@ -434,6 +434,58 @@ main {
   color: var(--color-accent);
 }
 
+.release-figure {
+  margin: 1.25rem 0;
+}
+
+.release-figure__image-wrap {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.release-figure__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.release-figure__caption {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.release-annotations {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1.25rem 0 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.release-annotation {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.85rem 1rem;
+  border-left: 3px solid var(--color-accent);
+}
+
+.release-annotation__title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin: 0 0 0.25rem;
+}
+
+.release-annotation__text {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
 /* GitHub release mockup */
 .release-mockup {
   background: var(--color-surface);

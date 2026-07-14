@@ -125,6 +125,25 @@ export const semverTimeline = [
   { version: 'v1.0.0', label: 'Stabil version', type: 'major' as const, note: 'Klar til "rigtig" produktion — breaking change fra 0.x til 1.x' },
 ];
 
+export const releaseExampleAnnotations = [
+  {
+    title: 'Tag og semver',
+    text: 'Versionen v0.26.2 følger vMAJOR.MINOR.PATCH — her er PATCH bumped, fordi det primært er fejlrettelser.',
+  },
+  {
+    title: 'Oprettet af github-actions',
+    text: 'Robot-ikonet viser at releasen er oprettet automatisk via GitHub Actions — ikke manuelt i UI.',
+  },
+  {
+    title: 'Latest-badge',
+    text: 'Grøn "Latest" markerer den nyeste release. Det er det punkt kunden typisk skal kigge på.',
+  },
+  {
+    title: 'What\'s Changed',
+    text: 'Release-noter lister hvad der er ændret — ofte med links til pull requests og bidragydere.',
+  },
+];
+
 export const releaseExamples: ReleaseExample[] = [
   {
     title: 'Mercantec elevprojekt',

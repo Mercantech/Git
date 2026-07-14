@@ -9,6 +9,7 @@ import {
   teamConventions,
   semverParts,
   releaseExamples,
+  releaseExampleAnnotations,
   introPoints,
   flowNodes,
   guideSteps,
@@ -98,20 +99,29 @@ import {
         Her er to konkrete eksempler:
       </p>
 
-      <div class="release-mockup" aria-hidden="true">
-        <div class="release-mockup__header">
-          <span class="release-mockup__tag">v0.2.0</span>
-          <span class="release-mockup__badge">Latest</span>
-          <span class="release-mockup__meta">Sprint 2 · release notes</span>
+      <figure class="release-figure">
+        <div class="release-figure__image-wrap">
+          <img
+            src="/dokploy-release-example.png"
+            alt="GitHub release-side for Dokploy v0.26.2 med tag, Latest-badge, github-actions som forfatter og What's Changed-sektion"
+            class="release-figure__image"
+            loading="lazy"
+            width="1200"
+            height="675"
+          />
         </div>
-        <div class="release-mockup__body">
-          <h4>What's Changed</h4>
-          <ul>
-            <li>Tilføjet brugerlogin med JWT</li>
-            <li>Ny dashboard-side med projektoversigt</li>
-            <li>Rettet fejl i formulervalidering</li>
-          </ul>
-        </div>
+        <figcaption class="release-figure__caption">
+          Eksempel fra <a href="https://github.com/Dokploy/dokploy/releases" target="_blank" rel="noopener noreferrer">Dokploy på GitHub</a> — et open-source projekt med professionel release-struktur.
+        </figcaption>
+      </figure>
+
+      <div class="release-annotations">
+        {releaseExampleAnnotations.map((item) => (
+          <div class="release-annotation">
+            <p class="release-annotation__title">{item.title}</p>
+            <p class="release-annotation__text">{item.text}</p>
+          </div>
+        ))}
       </div>
 
       <div class="example-grid">
