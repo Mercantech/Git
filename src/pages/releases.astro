@@ -3,7 +3,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ReleaseFlowDiagram from '../components/react/ReleaseFlowDiagram';
 import StepGuide from '../components/react/StepGuide';
 import MiniQuiz from '../components/react/MiniQuiz';
+import SemVerExplorer from '../components/react/SemVerExplorer';
 import {
+  whyReleasePoints,
+  teamConventions,
+  semverParts,
+  releaseExamples,
   introPoints,
   flowNodes,
   guideSteps,
@@ -15,7 +20,7 @@ import {
 
 <BaseLayout
   title="Releases, tags og GitHub Actions"
-  description="Lær hvordan du laver releases med Git-tags og automatiserer med GitHub Actions"
+  description="Lær hvorfor releases betyder noget, semantisk versionering og den tekniske proces med tags og GitHub Actions"
   currentPath="/releases"
 >
   <div class="content">
@@ -25,12 +30,112 @@ import {
 
     <h1>Releases, tags og GitHub Actions</h1>
     <p class="lead">
-      Lær hvordan du markerer en version med Git-tags, opretter en GitHub Release
-      og automatiserer processen med GitHub Actions.
+      Releases handler ikke kun om teknik — det er jeres måde at vise frem, få feedback
+      og levere til kunden. Her får du både den bløde vinkel og den tekniske proces.
     </p>
 
+    <!-- Blød vinkel -->
+    <section class="section" aria-labelledby="why-heading">
+      <span class="section-label">Hvorfor det betyder noget</span>
+      <h2 id="why-heading">Hvorfor arbejder vi med releases?</h2>
+      <p class="section-intro">
+        På GitHub er det standard at arbejde med releases. En release markerer et tydeligt
+        punkt i projektet, hvor noget <em>kan vises frem, testes eller overleveres</em>.
+      </p>
+
+      <ul class="intro-list">
+        {whyReleasePoints.map((point, i) => (
+          <li>
+            <span class="intro-list__icon" aria-hidden="true">{i + 1}</span>
+            <div>
+              <strong>{point.title}</strong> — {point.text}
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div class="soft-callout">
+        <p>
+          Ofte kobles en release til et <strong>sprint-slutpunkt</strong> og bruges som
+          grundlag for feedback — præcis som i professionelle udviklingsteams.
+        </p>
+      </div>
+    </section>
+
+    <!-- Team conventions -->
+    <section class="section" aria-labelledby="conventions-heading">
+      <h2 id="conventions-heading">Sådan gør vi det</h2>
+      <p class="section-intro">
+        Nogle faste rammer gør det nemmere for jer og jeres kunde at have en fælles forståelse.
+      </p>
+
+      <ul class="convention-list">
+        {teamConventions.map((item) => (
+          <li class={item.highlight ? 'convention-list__highlight' : ''}>
+            <p class="convention-list__title">{item.title}</p>
+            <p class="convention-list__text">{item.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Semantic versioning -->
+    <section class="section" aria-labelledby="semver-heading">
+      <h2 id="semver-heading">Semantisk versionering</h2>
+      <p class="section-intro">
+        Vi bruger <strong>Semantic Versioning</strong> — formatet er <code>vMAJOR.MINOR.PATCH</code>.
+        Første release er typisk <code>v0.1.0</code>, fordi systemet stadig er under aktiv udvikling.
+      </p>
+
+      <SemVerExplorer client:visible parts={semverParts} />
+    </section>
+
+    <!-- Examples -->
+    <section class="section" aria-labelledby="examples-heading">
+      <h2 id="examples-heading">Se det i praksis</h2>
+      <p class="section-intro">
+        Vil du have en god struktur, kan du kigge på open-source projekter og se hvordan de gør.
+        Her er to konkrete eksempler:
+      </p>
+
+      <div class="release-mockup" aria-hidden="true">
+        <div class="release-mockup__header">
+          <span class="release-mockup__tag">v0.2.0</span>
+          <span class="release-mockup__badge">Latest</span>
+          <span class="release-mockup__meta">Sprint 2 · release notes</span>
+        </div>
+        <div class="release-mockup__body">
+          <h4>What's Changed</h4>
+          <ul>
+            <li>Tilføjet brugerlogin med JWT</li>
+            <li>Ny dashboard-side med projektoversigt</li>
+            <li>Rettet fejl i formulervalidering</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="example-grid">
+        {releaseExamples.map((example) => (
+          <a href={example.url} class="example-card" target="_blank" rel="noopener noreferrer">
+            {example.tag && <span class="example-card__tag">{example.tag}</span>}
+            <p class="example-card__title">{example.title}</p>
+            <p class="example-card__desc">{example.description}</p>
+            <span class="example-card__link">Se release på GitHub →</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Teknisk del -->
     <section class="section" aria-labelledby="intro-heading">
-      <h2 id="intro-heading">Hvad er en release?</h2>
+      <span class="section-label">Den tekniske del</span>
+      <h2 id="intro-heading">Hvad sker der bag kulisserne?</h2>
+      <p class="section-intro">
+        Bag hver release ligger Git-tags, GitHub Releases og ofte automatiseret CI/CD.
+        Her er de fire byggesten:
+      </p>
       <ul class="intro-list">
         {introPoints.map((point, i) => (
           <li>
@@ -54,7 +159,7 @@ import {
     <section class="section" aria-labelledby="guide-heading">
       <h2 id="guide-heading">Trin-for-trin guide</h2>
       <p class="section-intro">
-        Følg disse trin for at lave din første release med tag og GitHub Actions.
+        Følg disse trin for at lave din release med tag og GitHub Actions.
       </p>
       <StepGuide client:visible steps={guideSteps} />
     </section>
@@ -84,7 +189,7 @@ import {
     <section class="section" aria-labelledby="quiz-heading">
       <h2 id="quiz-heading">Test din viden</h2>
       <p class="section-intro">
-        Svar på spørgsmålene for at tjekke om du har styr på releases, tags og Actions.
+        Svar på spørgsmålene for at tjekke om du har styr på releases, semver, tags og Actions.
       </p>
       <MiniQuiz client:visible questions={quizQuestions} />
     </section>
