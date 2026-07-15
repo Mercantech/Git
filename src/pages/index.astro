@@ -1,15 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { topics } from '../content/topics';
-
-const topicMeta: Record<string, { icon: string; color: string; tag: string }> = {
-  Commits: { icon: '💾', color: '#2563eb', tag: 'git commit' },
-  Branches: { icon: '🌿', color: '#16a34a', tag: 'git branch' },
-  'Pull Requests': { icon: '🔀', color: '#7c3aed', tag: 'pull request' },
-  Merge: { icon: '⚡', color: '#d97706', tag: 'git merge' },
-  Releases: { icon: '🏷️', color: '#ec4899', tag: 'git tag' },
-  Issues: { icon: '📋', color: '#0891b2', tag: 'github issues' },
-};
+import TopicCardGrid from '../components/react/TopicCardGrid';
 
 const features = [
   {
@@ -168,35 +159,7 @@ const learningPath = [
           Klik på et emne for at dykke ned i guides, visualiseringer og quizzer.
         </p>
       </div>
-      <div class="card-grid">
-        {topics.map((topic) => {
-          const meta = topicMeta[topic.title] ?? { icon: '📌', color: '#f05032', tag: 'emne' };
-          return topic.available && topic.href ? (
-            <a
-              href={topic.href}
-              class="landing-topic-card"
-              style={`--topic-color: ${meta.color}`}
-            >
-              <div class="landing-topic-card__top">
-                <span class="landing-topic-card__icon" aria-hidden="true">{meta.icon}</span>
-                <span class="landing-topic-card__arrow" aria-hidden="true">→</span>
-              </div>
-              <h3>{topic.title}</h3>
-              <p>{topic.description}</p>
-              <span class="landing-topic-card__tag">{meta.tag}</span>
-            </a>
-          ) : (
-            <div class="landing-topic-card topic-card--disabled" aria-disabled="true" style={`--topic-color: ${meta.color}`}>
-              <div class="landing-topic-card__top">
-                <span class="landing-topic-card__icon" aria-hidden="true">{meta.icon}</span>
-              </div>
-              <h3>{topic.title}</h3>
-              <p>{topic.description}</p>
-              <span class="landing-topic-card__tag">Kommer snart</span>
-            </div>
-          );
-        })}
-      </div>
+      <TopicCardGrid client:visible />
     </section>
 
     <section class="landing-cta" aria-labelledby="cta-heading">
