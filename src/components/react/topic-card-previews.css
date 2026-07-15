@@ -6,6 +6,8 @@
 }
 
 .topic-card {
+  --tp-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --tp-ease-draw: cubic-bezier(0.45, 0, 0.15, 1);
   display: flex;
   flex-direction: column;
   background: var(--color-surface);
@@ -14,7 +16,7 @@
   text-decoration: none;
   color: inherit;
   overflow: hidden;
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  transition: border-color 0.2s var(--tp-ease), box-shadow 0.2s var(--tp-ease), transform 0.2s var(--tp-ease);
   position: relative;
 }
 
@@ -27,7 +29,7 @@
   height: 3px;
   background: var(--topic-color, var(--color-accent));
   opacity: 0;
-  transition: opacity 0.15s;
+  transition: opacity 0.2s var(--tp-ease);
   z-index: 1;
 }
 
@@ -71,14 +73,15 @@
   overflow: hidden;
   text-overflow: ellipsis;
   opacity: 0;
-  transform: translateX(-10px);
+  transform: translateX(-14px);
 }
 
 .topic-card__prompt {
   color: #16a34a;
 }
 
-.topic-card__svg {
+.topic-card__svg,
+.topic-preview__svg {
   display: block;
   width: 100%;
   height: auto;
@@ -104,7 +107,7 @@
   margin: 0;
   font-size: 1.05rem;
   color: var(--color-text);
-  transition: color 0.15s;
+  transition: color 0.2s var(--tp-ease);
 }
 
 .topic-card:hover .topic-card__head h3 {
@@ -113,7 +116,7 @@
 
 .topic-card__arrow {
   color: var(--color-text-muted);
-  transition: transform 0.15s, color 0.15s;
+  transition: transform 0.2s var(--tp-ease), color 0.2s var(--tp-ease);
 }
 
 .topic-card:hover .topic-card__arrow {
@@ -128,11 +131,11 @@
   line-height: 1.5;
 }
 
-/* Shared animation utilities */
+/* ── Shared keyframes ── */
 @keyframes tp-slide-in {
   from {
     opacity: 0;
-    transform: translateX(-16px);
+    transform: translateX(-20px);
   }
   to {
     opacity: 1;
@@ -141,283 +144,273 @@
 }
 
 @keyframes tp-draw {
+  from { stroke-dashoffset: var(--line-length, 100); }
   to { stroke-dashoffset: 0; }
 }
 
-@keyframes tp-cmd-show {
-  0%, 100% {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  8%, 42% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  50% {
-    opacity: 0;
-    transform: translateX(10px);
-  }
+@keyframes tp-cmd-first {
+  0% { opacity: 0; transform: translateX(-14px); }
+  8% { opacity: 1; transform: translateX(0); }
+  38% { opacity: 1; transform: translateX(0); }
+  48% { opacity: 0; transform: translateX(8px); }
+  100% { opacity: 0; transform: translateX(8px); }
+}
+
+@keyframes tp-cmd-second {
+  0%, 46% { opacity: 0; transform: translateX(-14px); }
+  56% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes tp-cmd-single {
+  0% { opacity: 0; transform: translateX(-14px); }
+  10% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Reset animated elements before play */
+.topic-card__preview:not(.topic-card__preview--play) .topic-card__cmd,
+.topic-card__preview:not(.topic-card__preview--play) [class*="tp-"] {
+  opacity: 0;
+}
+
+.topic-card__preview:not(.topic-card__preview--play) [class*="__line"],
+.topic-card__preview:not(.topic-card__preview--play) [class*="__main"],
+.topic-card__preview:not(.topic-card__preview--play) [class*="__fork"],
+.topic-card__preview:not(.topic-card__preview--play) [class*="__branch"],
+.topic-card__preview:not(.topic-card__preview--play) [class*="__feat-line"],
+.topic-card__preview:not(.topic-card__preview--play) [class*="__merge"],
+.topic-card__preview:not(.topic-card__preview--play) [class*="__link"],
+.topic-card__preview:not(.topic-card__preview--play) [class*="__push"] {
+  stroke-dashoffset: var(--line-length, 100);
 }
 
 /* ── Commits ── */
-.topic-card[data-topic="commits"] .topic-card__cmd--1 {
-  animation: tp-cmd-show 5s ease infinite;
+.topic-card[data-topic="commits"] .topic-card__preview--play .topic-card__cmd--1 {
+  animation: tp-cmd-first 3.6s var(--tp-ease) forwards;
 }
 
-.topic-card[data-topic="commits"] .topic-card__cmd--2 {
-  animation: tp-cmd-show 5s ease infinite;
-  animation-delay: 2.5s;
+.topic-card[data-topic="commits"] .topic-card__preview--play .topic-card__cmd--2 {
+  animation: tp-cmd-second 3.6s var(--tp-ease) forwards;
 }
 
-.topic-card[data-topic="commits"] .tp-commits__line {
+.topic-card[data-topic="commits"] .topic-card__preview--play .tp-commits__line {
+  --line-length: 176;
   stroke-dasharray: 176;
   stroke-dashoffset: 176;
-  animation: tp-draw 0.5s ease forwards;
-  animation-delay: 0.1s;
+  animation: tp-draw 0.75s var(--tp-ease-draw) forwards;
+  animation-delay: 0.35s;
 }
 
-.topic-card[data-topic="commits"] .tp-commits__c {
+.topic-card[data-topic="commits"] .topic-card__preview--play .tp-commits__c {
   opacity: 0;
-  animation: tp-slide-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: tp-slide-in 0.55s var(--tp-ease) forwards;
 }
 
-.topic-card[data-topic="commits"] .tp-commits__c--1 { animation-delay: 0.4s; }
-.topic-card[data-topic="commits"] .tp-commits__c--2 { animation-delay: 0.7s; }
-.topic-card[data-topic="commits"] .tp-commits__c--3 { animation-delay: 2.6s; }
-
-.topic-card[data-topic="commits"] .tp-commits__zone {
+.topic-card[data-topic="commits"] .topic-card__preview--play .tp-commits__c--1 { animation-delay: 0.55s; }
+.topic-card[data-topic="commits"] .topic-card__preview--play .tp-commits__c--2 { animation-delay: 0.8s; }
+.topic-card[data-topic="commits"] .topic-card__preview--play .tp-commits__zone--1 {
   opacity: 0;
-  animation: tp-slide-in 0.35s ease forwards;
+  animation: tp-slide-in 0.45s var(--tp-ease) forwards;
+  animation-delay: 1.05s;
 }
-
-.topic-card[data-topic="commits"] .tp-commits__zone--1 { animation-delay: 2.3s; }
-.topic-card[data-topic="commits"] .tp-commits__zone--2 { animation-delay: 2.9s; }
+.topic-card[data-topic="commits"] .topic-card__preview--play .tp-commits__c--3 { animation-delay: 2.05s; }
+.topic-card[data-topic="commits"] .topic-card__preview--play .tp-commits__zone--2 {
+  opacity: 0;
+  animation: tp-slide-in 0.45s var(--tp-ease) forwards;
+  animation-delay: 2.35s;
+}
 
 /* ── Branches ── */
-.topic-card[data-topic="branches"] .topic-card__cmd--1 {
-  animation: tp-cmd-show 4.5s ease infinite;
+.topic-card[data-topic="branches"] .topic-card__preview--play .topic-card__cmd--1 {
+  animation: tp-cmd-single 3s var(--tp-ease) forwards;
 }
 
-.topic-card[data-topic="branches"] .tp-branches__main {
+.topic-card[data-topic="branches"] .topic-card__preview--play .tp-branches__main {
+  --line-length: 176;
   stroke-dasharray: 176;
   stroke-dashoffset: 176;
-  animation: tp-draw 0.45s ease forwards;
+  animation: tp-draw 0.7s var(--tp-ease-draw) forwards;
+  animation-delay: 0.25s;
 }
 
-.topic-card[data-topic="branches"] .tp-branches__c {
+.topic-card[data-topic="branches"] .topic-card__preview--play .tp-branches__c {
   opacity: 0;
-  animation: tp-slide-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: tp-slide-in 0.55s var(--tp-ease) forwards;
 }
 
-.topic-card[data-topic="branches"] .tp-branches__c--1 { animation-delay: 0.35s; }
-.topic-card[data-topic="branches"] .tp-branches__c--2 { animation-delay: 0.65s; }
-.topic-card[data-topic="branches"] .tp-branches__c--3 { animation-delay: 1.5s; }
+.topic-card[data-topic="branches"] .topic-card__preview--play .tp-branches__c--1 { animation-delay: 0.45s; }
+.topic-card[data-topic="branches"] .topic-card__preview--play .tp-branches__c--2 { animation-delay: 0.7s; }
 
-.topic-card[data-topic="branches"] .tp-branches__fork {
+.topic-card[data-topic="branches"] .topic-card__preview--play .tp-branches__fork {
+  --line-length: 24;
   stroke-dasharray: 24;
   stroke-dashoffset: 24;
-  animation: tp-draw 0.35s ease forwards;
-  animation-delay: 1.1s;
-}
-
-.topic-card[data-topic="branches"] .tp-branches__feat-line {
-  stroke-dasharray: 62;
-  stroke-dashoffset: 62;
-  animation: tp-draw 0.4s ease forwards;
-  animation-delay: 1.25s;
-}
-
-.topic-card[data-topic="branches"] .tp-branches__label {
-  opacity: 0;
-  animation: tp-slide-in 0.3s ease forwards;
-  animation-delay: 1.6s;
-}
-
-/* ── Pull Requests ── */
-.topic-card[data-topic="pull-requests"] .topic-card__cmd--1 {
-  animation: tp-cmd-show 6s ease infinite;
-}
-
-.topic-card[data-topic="pull-requests"] .topic-card__cmd--2 {
-  animation: tp-cmd-show 6s ease infinite;
-  animation-delay: 3s;
-}
-
-.topic-card[data-topic="pull-requests"] .tp-pr__branch {
-  stroke-dasharray: 24;
-  stroke-dashoffset: 24;
-  animation: tp-draw 0.35s ease forwards;
-  animation-delay: 0.5s;
-}
-
-.topic-card[data-topic="pull-requests"] .tp-pr__feat-line {
-  stroke-dasharray: 42;
-  stroke-dashoffset: 42;
-  animation: tp-draw 0.35s ease forwards;
-  animation-delay: 0.7s;
-}
-
-.topic-card[data-topic="pull-requests"] .tp-pr__c {
-  opacity: 0;
-  animation: tp-slide-in 0.4s ease forwards;
+  animation: tp-draw 0.5s var(--tp-ease-draw) forwards;
   animation-delay: 1s;
 }
 
-.topic-card[data-topic="pull-requests"] .tp-pr__arrow {
+.topic-card[data-topic="branches"] .topic-card__preview--play .tp-branches__feat-line {
+  --line-length: 62;
+  stroke-dasharray: 62;
+  stroke-dashoffset: 62;
+  animation: tp-draw 0.55s var(--tp-ease-draw) forwards;
+  animation-delay: 1.2s;
+}
+
+.topic-card[data-topic="branches"] .topic-card__preview--play .tp-branches__c--3 { animation-delay: 1.45s; }
+
+.topic-card[data-topic="branches"] .topic-card__preview--play .tp-branches__label {
   opacity: 0;
-  animation: tp-slide-in 0.35s ease forwards;
-  animation-delay: 3.1s;
+  animation: tp-slide-in 0.45s var(--tp-ease) forwards;
+  animation-delay: 1.65s;
 }
 
-.topic-card[data-topic="pull-requests"] .tp-pr__badge {
-  opacity: 0;
-  animation: tp-slide-in 0.35s ease forwards;
-  animation-delay: 3.3s;
+/* ── Pull Requests ── */
+.topic-card[data-topic="pull-requests"] .topic-card__preview--play .topic-card__cmd--1 {
+  animation: tp-cmd-first 4s var(--tp-ease) forwards;
 }
 
-/* ── Merge ── */
-.topic-card[data-topic="merge"] .topic-card__cmd--1 {
-  animation: tp-cmd-show 6s ease infinite;
+.topic-card[data-topic="pull-requests"] .topic-card__preview--play .topic-card__cmd--2 {
+  animation: tp-cmd-second 4s var(--tp-ease) forwards;
 }
 
-.topic-card[data-topic="merge"] .topic-card__cmd--2 {
-  animation: tp-cmd-show 6s ease infinite;
-  animation-delay: 3s;
-}
-
-.topic-card[data-topic="merge"] .tp-merge__branch {
+.topic-card[data-topic="pull-requests"] .topic-card__preview--play .tp-pr__branch {
+  --line-length: 24;
   stroke-dasharray: 24;
   stroke-dashoffset: 24;
-  animation: tp-draw 0.35s ease forwards;
-  animation-delay: 0.4s;
-}
-
-.topic-card[data-topic="merge"] .tp-merge__merge {
-  stroke-dasharray: 36;
-  stroke-dashoffset: 36;
-  animation: tp-draw 0.45s ease forwards;
-  animation-delay: 3.2s;
-}
-
-.topic-card[data-topic="merge"] .tp-merge__c {
-  opacity: 0;
-  animation: tp-slide-in 0.4s ease forwards;
-  animation-delay: 3.5s;
-}
-
-/* ── Releases ── */
-.topic-card[data-topic="releases"] .topic-card__cmd--1 {
-  animation: tp-cmd-show 6s ease infinite;
-}
-
-.topic-card[data-topic="releases"] .topic-card__cmd--2 {
-  animation: tp-cmd-show 6s ease infinite;
-  animation-delay: 3s;
-}
-
-.topic-card[data-topic="releases"] .tp-releases__line {
-  stroke-dasharray: 176;
-  stroke-dashoffset: 176;
-  animation: tp-draw 0.45s ease forwards;
-}
-
-.topic-card[data-topic="releases"] .tp-releases__tag {
-  opacity: 0;
-  animation: tp-slide-in 0.4s ease forwards;
-  animation-delay: 2.6s;
-}
-
-.topic-card[data-topic="releases"] .tp-releases__release {
-  opacity: 0;
-  animation: tp-slide-in 0.4s ease forwards;
-  animation-delay: 3.2s;
-}
-
-.topic-card[data-topic="releases"] .tp-releases__push {
-  stroke-dasharray: 8;
-  stroke-dashoffset: 8;
-  animation: tp-draw 0.3s ease forwards;
-  animation-delay: 3.4s;
-}
-
-/* ── Issues ── */
-.topic-card[data-topic="issues"] .topic-card__cmd--1 {
-  animation: tp-cmd-show 6s ease infinite;
-}
-
-.topic-card[data-topic="issues"] .topic-card__cmd--2 {
-  animation: tp-cmd-show 6s ease infinite;
-  animation-delay: 3s;
-}
-
-.topic-card[data-topic="issues"] .tp-issues__issue {
-  opacity: 0;
-  animation: tp-slide-in 0.4s ease forwards;
+  animation: tp-draw 0.5s var(--tp-ease-draw) forwards;
   animation-delay: 0.3s;
 }
 
-.topic-card[data-topic="issues"] .tp-issues__link {
+.topic-card[data-topic="pull-requests"] .topic-card__preview--play .tp-pr__feat-line {
+  --line-length: 42;
+  stroke-dasharray: 42;
+  stroke-dashoffset: 42;
+  animation: tp-draw 0.5s var(--tp-ease-draw) forwards;
+  animation-delay: 0.55s;
+}
+
+.topic-card[data-topic="pull-requests"] .topic-card__preview--play .tp-pr__c {
+  opacity: 0;
+  animation: tp-slide-in 0.55s var(--tp-ease) forwards;
+  animation-delay: 0.85s;
+}
+
+.topic-card[data-topic="pull-requests"] .topic-card__preview--play .tp-pr__arrow {
+  opacity: 0;
+  animation: tp-slide-in 0.45s var(--tp-ease) forwards;
+  animation-delay: 2.05s;
+}
+
+.topic-card[data-topic="pull-requests"] .topic-card__preview--play .tp-pr__badge {
+  opacity: 0;
+  animation: tp-slide-in 0.45s var(--tp-ease) forwards;
+  animation-delay: 2.3s;
+}
+
+/* ── Merge ── */
+.topic-card[data-topic="merge"] .topic-card__preview--play .topic-card__cmd--1 {
+  animation: tp-cmd-first 4s var(--tp-ease) forwards;
+}
+
+.topic-card[data-topic="merge"] .topic-card__preview--play .topic-card__cmd--2 {
+  animation: tp-cmd-second 4s var(--tp-ease) forwards;
+}
+
+.topic-card[data-topic="merge"] .topic-card__preview--play .tp-merge__branch {
+  --line-length: 24;
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  animation: tp-draw 0.5s var(--tp-ease-draw) forwards;
+  animation-delay: 0.3s;
+}
+
+.topic-card[data-topic="merge"] .topic-card__preview--play .tp-merge__merge {
+  --line-length: 36;
+  stroke-dasharray: 36;
+  stroke-dashoffset: 36;
+  animation: tp-draw 0.6s var(--tp-ease-draw) forwards;
+  animation-delay: 2.1s;
+}
+
+.topic-card[data-topic="merge"] .topic-card__preview--play .tp-merge__c {
+  opacity: 0;
+  animation: tp-slide-in 0.55s var(--tp-ease) forwards;
+  animation-delay: 2.45s;
+}
+
+/* ── Releases ── */
+.topic-card[data-topic="releases"] .topic-card__preview--play .topic-card__cmd--1 {
+  animation: tp-cmd-first 4s var(--tp-ease) forwards;
+}
+
+.topic-card[data-topic="releases"] .topic-card__preview--play .topic-card__cmd--2 {
+  animation: tp-cmd-second 4s var(--tp-ease) forwards;
+}
+
+.topic-card[data-topic="releases"] .topic-card__preview--play .tp-releases__line {
+  --line-length: 176;
+  stroke-dasharray: 176;
+  stroke-dashoffset: 176;
+  animation: tp-draw 0.7s var(--tp-ease-draw) forwards;
+  animation-delay: 0.2s;
+}
+
+.topic-card[data-topic="releases"] .topic-card__preview--play .tp-releases__tag {
+  opacity: 0;
+  animation: tp-slide-in 0.55s var(--tp-ease) forwards;
+  animation-delay: 2s;
+}
+
+.topic-card[data-topic="releases"] .topic-card__preview--play .tp-releases__release {
+  opacity: 0;
+  animation: tp-slide-in 0.55s var(--tp-ease) forwards;
+  animation-delay: 2.35s;
+}
+
+.topic-card[data-topic="releases"] .topic-card__preview--play .tp-releases__push {
+  --line-length: 8;
+  stroke-dasharray: 8;
+  stroke-dashoffset: 8;
+  animation: tp-draw 0.4s var(--tp-ease-draw) forwards;
+  animation-delay: 2.6s;
+}
+
+/* ── Issues ── */
+.topic-card[data-topic="issues"] .topic-card__preview--play .topic-card__cmd--1 {
+  animation: tp-cmd-first 4s var(--tp-ease) forwards;
+}
+
+.topic-card[data-topic="issues"] .topic-card__preview--play .topic-card__cmd--2 {
+  animation: tp-cmd-second 4s var(--tp-ease) forwards;
+}
+
+.topic-card[data-topic="issues"] .topic-card__preview--play .tp-issues__issue {
+  opacity: 0;
+  animation: tp-slide-in 0.55s var(--tp-ease) forwards;
+  animation-delay: 0.2s;
+}
+
+.topic-card[data-topic="issues"] .topic-card__preview--play .tp-issues__link {
+  --line-length: 60;
   stroke-dasharray: 60;
   stroke-dashoffset: 60;
-  animation: tp-draw 0.5s ease forwards;
-  animation-delay: 3.1s;
+  animation: tp-draw 0.65s var(--tp-ease-draw) forwards;
+  animation-delay: 2.05s;
 }
 
-.topic-card[data-topic="issues"] .tp-issues__c {
+.topic-card[data-topic="issues"] .topic-card__preview--play .tp-issues__c {
   opacity: 0;
-  animation: tp-slide-in 0.4s ease forwards;
-  animation-delay: 3.4s;
+  animation: tp-slide-in 0.55s var(--tp-ease) forwards;
+  animation-delay: 2.4s;
 }
 
-.topic-card[data-topic="issues"] .tp-issues__closes {
+.topic-card[data-topic="issues"] .topic-card__preview--play .tp-issues__closes {
   opacity: 0;
-  animation: tp-slide-in 0.35s ease forwards;
-  animation-delay: 3.6s;
+  animation: tp-slide-in 0.45s var(--tp-ease) forwards;
+  animation-delay: 2.65s;
 }
-
-/* Restart graph animations on hover */
-.topic-card:hover .topic-card__preview svg [class*="tp-"] {
-  animation: none;
-}
-
-.topic-card[data-topic="commits"]:hover .tp-commits__line {
-  animation: tp-draw 0.5s ease forwards;
-  animation-delay: 0.05s;
-}
-
-.topic-card[data-topic="commits"]:hover .tp-commits__c--1 { animation: tp-slide-in 0.35s ease forwards 0.25s; }
-.topic-card[data-topic="commits"]:hover .tp-commits__c--2 { animation: tp-slide-in 0.35s ease forwards 0.5s; }
-.topic-card[data-topic="commits"]:hover .tp-commits__zone--1 { animation: tp-slide-in 0.3s ease forwards 0.75s; }
-.topic-card[data-topic="commits"]:hover .tp-commits__c--3 { animation: tp-slide-in 0.35s ease forwards 1s; }
-.topic-card[data-topic="commits"]:hover .tp-commits__zone--2 { animation: tp-slide-in 0.3s ease forwards 1.25s; }
-
-.topic-card[data-topic="branches"]:hover .tp-branches__main { animation: tp-draw 0.4s ease forwards; }
-.topic-card[data-topic="branches"]:hover .tp-branches__c--1 { animation: tp-slide-in 0.35s ease forwards 0.2s; }
-.topic-card[data-topic="branches"]:hover .tp-branches__c--2 { animation: tp-slide-in 0.35s ease forwards 0.45s; }
-.topic-card[data-topic="branches"]:hover .tp-branches__fork { animation: tp-draw 0.3s ease forwards 0.65s; }
-.topic-card[data-topic="branches"]:hover .tp-branches__feat-line { animation: tp-draw 0.35s ease forwards 0.85s; }
-.topic-card[data-topic="branches"]:hover .tp-branches__c--3 { animation: tp-slide-in 0.35s ease forwards 1.1s; }
-.topic-card[data-topic="branches"]:hover .tp-branches__label { animation: tp-slide-in 0.3s ease forwards 1.25s; }
-
-.topic-card[data-topic="pull-requests"]:hover .tp-pr__branch { animation: tp-draw 0.3s ease forwards 0.2s; }
-.topic-card[data-topic="pull-requests"]:hover .tp-pr__feat-line { animation: tp-draw 0.3s ease forwards 0.4s; }
-.topic-card[data-topic="pull-requests"]:hover .tp-pr__c { animation: tp-slide-in 0.35s ease forwards 0.6s; }
-.topic-card[data-topic="pull-requests"]:hover .tp-pr__arrow { animation: tp-slide-in 0.3s ease forwards 0.85s; }
-.topic-card[data-topic="pull-requests"]:hover .tp-pr__badge { animation: tp-slide-in 0.3s ease forwards 1s; }
-
-.topic-card[data-topic="merge"]:hover .tp-merge__branch { animation: tp-draw 0.3s ease forwards 0.2s; }
-.topic-card[data-topic="merge"]:hover .tp-merge__merge { animation: tp-draw 0.4s ease forwards 0.85s; }
-.topic-card[data-topic="merge"]:hover .tp-merge__c { animation: tp-slide-in 0.35s ease forwards 1.1s; }
-
-.topic-card[data-topic="releases"]:hover .tp-releases__line { animation: tp-draw 0.4s ease forwards; }
-.topic-card[data-topic="releases"]:hover .tp-releases__tag { animation: tp-slide-in 0.35s ease forwards 0.7s; }
-.topic-card[data-topic="releases"]:hover .tp-releases__release { animation: tp-slide-in 0.35s ease forwards 1s; }
-.topic-card[data-topic="releases"]:hover .tp-releases__push { animation: tp-draw 0.25s ease forwards 1.15s; }
-
-.topic-card[data-topic="issues"]:hover .tp-issues__issue { animation: tp-slide-in 0.35s ease forwards 0.15s; }
-.topic-card[data-topic="issues"]:hover .tp-issues__link { animation: tp-draw 0.4s ease forwards 0.85s; }
-.topic-card[data-topic="issues"]:hover .tp-issues__c { animation: tp-slide-in 0.35s ease forwards 1.1s; }
-.topic-card[data-topic="issues"]:hover .tp-issues__closes { animation: tp-slide-in 0.3s ease forwards 1.25s; }
 
 @media (prefers-reduced-motion: reduce) {
   .topic-card__cmd,

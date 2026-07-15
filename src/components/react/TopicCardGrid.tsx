@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
+import { useRef, type ReactNode } from 'react';
 import './topic-card-previews.css';
-import { topicPreviews, type TopicId } from '../../content/topic-previews';
+import { topicPreviews, type TopicId, type TopicPreview } from '../../content/topic-previews';
 
 function CommitsPreview() {
   return (
@@ -83,7 +83,7 @@ function ReleasesPreview() {
         <rect x="148" y="10" width="44" height="16" rx="4" fill="var(--color-surface)" stroke="#ec4899" strokeWidth="1.5" />
         <text x="170" y="21" textAnchor="middle" fontSize="6" fill="#ec4899" fontWeight="600">Release</text>
       </g>
-      <path className="tp-releases__push" d="M 142 20 L 148 20" stroke="#ec4899" strokeWidth="1.5" markerEnd="url(#tp-arrow)" />
+      <path className="tp-releases__push" d="M 142 20 L 148 20" stroke="#ec4899" strokeWidth="1.5" />
     </svg>
   );
 }
@@ -115,39 +115,53 @@ const previews: Record<TopicId, () => ReactNode> = {
   issues: IssuesPreview,
 };
 
+function TopicCard({ topic }: { topic: TopicPreview }) {
+  const previewRef = useRef<HTMLDivElement>(null);
+  const Preview = previews[topic.id];
+
+  const replay = () => {
+    const el = previewRef.current;
+    if (!el) return;
+    el.classList.remove('topic-card__preview--play');
+    void el.offsetWidth;
+    el.classList.add('topic-card__preview--play');
+  };
+
+  return (
+    <a
+      href={topic.href}
+      className="topic-card"
+      data-topic={topic.id}
+      style={{ '--topic-color': topic.color } as React.CSSProperties}
+      onMouseEnter={replay}
+    >
+      <div ref={previewRef} className="topic-card__preview topic-card__preview--play" aria-hidden="true">
+        <div className="topic-card__cmds">
+          {topic.commands.map((cmd, i) => (
+            <code key={cmd} className={`topic-card__cmd topic-card__cmd--${i + 1}`}>
+              <span className="topic-card__prompt">$</span> {cmd}
+            </code>
+          ))}
+        </div>
+        <Preview />
+      </div>
+      <div className="topic-card__body">
+        <div className="topic-card__head">
+          <h3>{topic.title}</h3>
+          <span className="topic-card__arrow">→</span>
+        </div>
+        <p>{topic.description}</p>
+      </div>
+    </a>
+  );
+}
+
 export default function TopicCardGrid() {
   return (
     <div className="topic-card-grid">
-      {topicPreviews.map((topic) => {
-        const Preview = previews[topic.id];
-        return (
-          <a
-            key={topic.id}
-            href={topic.href}
-            className="topic-card"
-            data-topic={topic.id}
-            style={{ '--topic-color': topic.color } as React.CSSProperties}
-          >
-            <div className="topic-card__preview" aria-hidden="true">
-              <div className="topic-card__cmds">
-                {topic.commands.map((cmd, i) => (
-                  <code key={cmd} className={`topic-card__cmd topic-card__cmd--${i + 1}`}>
-                    <span className="topic-card__prompt">$</span> {cmd}
-                  </code>
-                ))}
-              </div>
-              <Preview />
-            </div>
-            <div className="topic-card__body">
-              <div className="topic-card__head">
-                <h3>{topic.title}</h3>
-                <span className="topic-card__arrow">→</span>
-              </div>
-              <p>{topic.description}</p>
-            </div>
-          </a>
-        );
-      })}
+      {topicPreviews.map((topic) => (
+        <TopicCard key={topic.id} topic={topic} />
+      ))}
     </div>
   );
 }
