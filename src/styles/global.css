@@ -130,10 +130,17 @@ li { margin-bottom: 0.35rem; }
 }
 
 .site-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
   font-weight: 700;
   font-size: 1.1rem;
   color: var(--color-text);
   text-decoration: none;
+}
+
+.site-logo span {
+  line-height: 1;
 }
 
 .site-logo:hover { text-decoration: none; }
@@ -566,6 +573,10 @@ main {
   max-width: calc(var(--max-width) + 4rem);
   margin: 0 auto;
   padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   text-align: center;
   font-size: 0.85rem;
   color: var(--color-text-muted);

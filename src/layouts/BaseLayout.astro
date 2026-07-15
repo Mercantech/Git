@@ -1,4 +1,6 @@
 ---
+import GitLogo from '../components/GitLogo.astro';
+
 interface Props {
   title: string;
   description?: string;
@@ -16,12 +18,17 @@ const { title, description = 'Introduktion til Git og GitHub', currentPath = '/'
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/git-logo.png" />
+    <link rel="apple-touch-icon" href="/git-logo.png" />
     <title>{title} | Git & GitHub</title>
   </head>
   <body>
     <header class="site-header">
       <div class="site-header__inner">
-        <a href="/" class="site-logo">Git & GitHub</a>
+        <a href="/" class="site-logo">
+          <GitLogo size={28} />
+          <span>Git & GitHub</span>
+        </a>
         <nav class="site-nav" aria-label="Hovednavigation">
           <a href="/" aria-current={currentPath === '/' ? 'page' : undefined}>Forside</a>
           <a href="/commits" aria-current={currentPath === '/commits' ? 'page' : undefined}>Commits</a>
@@ -53,7 +60,8 @@ const { title, description = 'Introduktion til Git og GitHub', currentPath = '/'
     </main>
 
     <footer class="site-footer">
-      Interaktiv introduktion til Git og GitHub
+      <GitLogo size={20} />
+      <span>Interaktiv introduktion til Git og GitHub</span>
     </footer>
 
     <div class="present-controls" data-present-controls hidden>

@@ -1,4 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97 97" role="img" aria-label="Git">
+---
+interface Props {
+  size?: number;
+  class?: string;
+  label?: string;
+}
+
+const { size = 24, class: className = '', label } = Astro.props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 97 97"
+  width={size}
+  height={size}
+  class:list={['git-logo', className]}
+  role={label ? 'img' : 'presentation'}
+  aria-label={label}
+  aria-hidden={label ? undefined : true}
+>
   <g transform="translate(48.5 48.5)">
     <g transform="rotate(-45)">
       <rect x="-38" y="-38" width="76" height="76" rx="11" fill="#F05032"/>
@@ -15,3 +34,10 @@
     <circle cx="66.5" cy="29.5" r="5.5"/>
   </g>
 </svg>
+
+<style>
+  .git-logo {
+    display: block;
+    flex-shrink: 0;
+  }
+</style>

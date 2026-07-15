@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TopicCardGrid from '../components/react/TopicCardGrid';
+import GitLogo from '../components/GitLogo.astro';
 
 const features = [
   {
@@ -44,6 +45,7 @@ const learningPath = [
     <section class="landing-hero" aria-labelledby="hero-heading">
       <div class="landing-hero__inner">
         <div class="landing-hero__text">
+          <GitLogo size={48} class="landing-hero__logo" label="Git" />
           <h1 id="hero-heading">
             Lær <em>Git & GitHub</em> ved at gøre det
           </h1>
